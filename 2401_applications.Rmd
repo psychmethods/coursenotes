@@ -1,0 +1,343 @@
+---
+title: "Applications in R"
+date: '`r format(Sys.time(), "%B %d, %Y")`'
+bibliography: library.bib
+output:
+  slidy_presentation:
+    css: teaching.css
+    fig_caption: yes
+    font_adjustment: 2
+    highlight: pygments
+    df_print: kable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,out.width="75%", fig.align = "center",fig.retina = 2,
+                      tidy.opts=list(width.cutoff = 120),  # For code
+                      options(width = 120), # For output)
+                      message=FALSE, warning=FALSE)  
+options(digits = 3)
+```
+
+
+# Test 3 Results
+
+```{r testdata,include=FALSE}
+results <- read.delim("E:/Dropbox/Lab/Teaching/Introduction to Statistics/2018 Fall/tests/Test 03/results.dat", stringsAsFactors=FALSE)
+
+results$test1_percent=results$test1/61*100
+results$test2_percent=results$test2/51.5*100
+results$test3_percent=results$test3/45*100
+results_percent=results[c("test1_percent","test2_percent","test3_percent")]
+
+results_long=data.frame(id=rep(c(1:22),3), percent=c(results$test1_percent,results$test2_percent,results$test3_percent),test=c(rep(1,22),rep(2,22),rep(3,22)))
+results_long$test=as.factor(results_long$test)
+```
+
+- Scores were similar to other tests
+
+```{r test,echo=TRUE}
+df=results_percent
+mean(df$test3_percent)
+median(df$test3_percent)
+max(df$test3_percent)
+```
+
+***
+- The distributions across tests were similar
+
+```{r,echo=TRUE}
+library(ggplot2)
+library(plyr)
+df=results_long
+
+mu <- ddply(df, "test", summarise, grp.median=median(percent))
+#head(mu)
+p <- ggplot(df, 
+             aes(x=percent,color=test))
+p + geom_density(alpha=.5,
+             aes(fill=test)) +
+    geom_vline(data=mu, 
+             aes(xintercept=grp.median, color=test),
+             linetype="dashed") + 
+    scale_color_brewer(
+             palette="Dark2") + theme_minimal()
+```
+
+
+***
+- The correlations across tests were moderately high.
+
+```{r,echo=TRUE}
+library(corrplot)
+cor_results=cor(results_percent,method = "spearman")
+corrplot.mixed(cor_results, lower = "ellipse", upper = "number")
+```
+
+***
+- Tests 1 and 2 explain a moderate amount of variability in Test 3
+
+```{r,echo=TRUE}
+# Test 3 predicted from tests 1 and 2
+lm3_12=lm(data=results_percent, 
+          test3_percent~test1_percent+test2_percent)
+
+# Test 3 predicted from test 1
+lm3_1=lm(data=results_percent, 
+         test3_percent~test1_percent)
+
+# Test 3 predicted from test 2
+lm3_2=lm(data=results_percent, 
+         test3_percent~test2_percent)
+
+# Can we precict test 3 grades from tests 1 and 2
+summary(lm3_12)
+
+# Do we need both tests?
+print(anova(lm3_12,lm3_1))
+
+```
+
+
+
+# Applications
+
+- Throughout this course, we have dabbled in R while covering the foundations of statistics
+
+- For the next two weeks, I'm going to focus on using R to answer statistical questions.
+
+- Accordingly, I'd like your thoughts on an alternative final exam.
+    - Would you all be interested in a take-home exam, instead of an in-class exam?
+    - I'd give it to you at the end of the last day of class, 
+        - and you'd have until Friday, December 14 Noon.
+    
+# In the beginning...
+
+- We discussed the Steps in a Research Study
+    - Question
+    - Design
+    - Sampling
+    - Measurement
+    - Summary
+    
+# Question
+- Research Problem
+- Specific Research Question
+- Operationalize
+- Hypothesize
+
+# Research Problem
+- Although we can pick anything...
+- In my experience, you want to pick a broad area where you have:
+    - you have some interest; 
+    - background knowledge
+        - (Or can obtain some. 
+        - Wikipedia is actually a good place to start.
+            - Look at the references); and
+    - data
+        - either you collect your own, or
+        - you find pre-existing data
+        
+# Specific Research Question
+- Begin by asking several questions about a topic. 
+- Eliminate questions that cannot be answered by direct observation or by gathering evidence. 
+- Break broad questions into smaller questions that can be investigated one at a time. 
+
+# Characteristics of a good research question:
+- The question is feasible.
+- The question is clear.
+- The question is meaningful.
+- The question is ethical.
+
+# General Structure of a specific question.
+- What is the relationship between X and Y?
+- What Xs influence Y?
+- What is the effect of X on Y?
+
+# Operationalize
+- Operationalization is a process of defining the fuzzy concepts; and 
+- making the concept(s)
+    - distinguishable, 
+    - measurable, and 
+    - understandable in terms of observable data.
+    
+***
+- If you collect your own data, 
+    - then operationalizing is fairly straightforward.
+    
+- Identify which measures are used in topic area
+    - Are those measures reliable?
+    - Are those measures valid?
+    - Are there population norms?
+    
+- Practical Considerations...
+    - How much time does the subject need to take the test?
+    - More time increases cost
+        - participant time (paid hourly)
+        - participant fatigue (lower quality data)
+    - If you have a fixed amount of time,
+        - then you have to remove other questions
+
+***
+- If you are going to use a public dataset,
+    - then you're limited by what data are available to you.
+- In that case, you'll have to look at what data are available and perhaps select your dataset based on that.
+- Practical Considerations
+    - Someone may have already used that dataset to answer a similar question
+    - Someone may be in the process of using that dataset to answer a similar question.
+
+# Pre-existing Data
+- University Archives
+    - [Harvard Dataverse](https://dataverse.harvard.edu/)
+    - [ICPSR](https://www.icpsr.umich.edu/icpsrweb/ICPSR/)
+- Governments (Federal Agencies, State, and Local)
+    - [USA data.gov](https://www.data.gov/)
+    - [India data.gov](https://data.gov.in/)
+    - [City of Nashville](https://data.nashville.gov/)
+    - [State of Tennessee... in theory](https://www.tn.gov/opengov/)
+    - [State of Tennessee... in practice](http://tn-tnmap.opendata.arcgis.com/)
+- Other Organizations
+    - [Amazon](https://aws.amazon.com/opendata/)
+    
+# Data Structure Varies
+How the data are organized varies a lot
+
+- Some data will be pre-packaged in R
+
+```{r, echo=TRUE}
+library(datasets)
+#library(help = "datasets")
+ls("package:datasets")
+
+library(ggplot2movies)
+#library(help = "ggplot2movies")
+ls("package:ggplot2movies")
+```
+
+***
+
+- Some will have online GUIs, where you can select your variables and generate an R file for you
+    - [nlsinfo](https://www.nlsinfo.org/) from the BLS
+
+```{r, echo=TRUE,results ="hide",message=FALSE }
+new_data <- read.table('E:\\Dropbox\\Lab\\Research\\Projects\\Current\\Kinship 30k\\Common\\content\\data\\afi_g1\\afi_g1.dat', sep=' ')
+names(new_data) <- c('A0002600',
+                     'R0000100',
+                     'R0173600',
+                     'R0214700',
+                     'R0214800',
+                     'R0988000',
+                     'R1020700',
+                     'R1312200',
+                     'R1379600',
+                     'R1379700',
+                     'R1379800',
+                     'R1691600',
+                     'R1760000',
+                     'R1760100',
+                     'R1760200')
+
+
+# Handle missing values
+
+new_data[new_data == -1] = NA  # Refused 
+new_data[new_data == -2] = NA  # Dont know 
+new_data[new_data == -3] = NA  # Invalid missing 
+new_data[new_data == -4] = NA  # Valid missing 
+new_data[new_data == -5] = NA  # Non-interview 
+
+
+# If there are values not categorized they will be represented as NA
+
+vallabels = function(data) {
+  
+  data$R0173600 <- factor(data$R0173600, 
+                          levels=c(1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,11.0,12.0,13.0,14.0,15.0,16.0,17.0,18.0,19.0,20.0), 
+                          labels=c("CROSS MALE WHITE",
+                                   "CROSS MALE WH. POOR",
+                                   "CROSS MALE BLACK",
+                                   "CROSS MALE HISPANIC",
+                                   "CROSS FEMALE WHITE",
+                                   "CROSS FEMALE WH POOR",
+                                   "CROSS FEMALE BLACK",
+                                   "CROSS FEMALE HISPANIC",
+                                   "SUP MALE WH POOR",
+                                   "SUP MALE BLACK",
+                                   "SUP MALE HISPANIC",
+                                   "SUP FEM WH POOR",
+                                   "SUP FEMALE BLACK",
+                                   "SUP FEMALE HISPANIC",
+                                   "MIL MALE WHITE",
+                                   "MIL MALE BLACK",
+                                   "MIL MALE HISPANIC",
+                                   "MIL FEMALE WHITE",
+                                   "MIL FEMALE BLACK",
+                                   "MIL FEMALE HISPANIC"))
+  data$R0214700 <- factor(data$R0214700, 
+                          levels=c(1.0,2.0,3.0), 
+                          labels=c("HISPANIC",
+                                   "BLACK",
+                                   "NON-BLACK, NON-HISPANIC"))
+  data$R0214800 <- factor(data$R0214800, 
+                          levels=c(1.0,2.0), 
+                          labels=c("MALE",
+                                   "FEMALE"))
+  return(data)
+}
+
+varlabels <- c("VERSION_R26_1 2014",
+               "ID# (1-12686) 79",
+               "SAMPLE ID  79 INT",
+               "RACL/ETHNIC COHORT /SCRNR 79",
+               "SEX OF R 79",
+               "MALE AGE 1ST HAD INTERCOURSE 83",
+               "F AGE 1ST HAD SEXUAL INTERCOURSE 83",
+               "MALE AGE 1ST HAD INTERCOURSE 84",
+               "F AGE 1ST HAD SEXUAL INTERCOURSE 84",
+               "F USE B-DT YR 1ST INTERCOURSE 84",
+               "F MO SEXUAL INTERCOURSE 1ST TIME 84",
+               "MALE AGE 1ST HAD INTERCOURSE 85",
+               "F AGE 1ST HAD SEXUAL INTERCOURSE 85",
+               "F USE B-DT YR/1ST INTERCOURSE 85",
+               "F MO SEXUAL INTERCOURSE 1ST TIME 85"
+)
+
+
+# Use qnames rather than rnums
+
+qnames = function(data) {
+  names(data) <- c("VERSION_R26_2014",
+                   "CASEID",
+                   "SAMPLE_ID",
+                   "RACE",
+                   "SEX",
+                   "afi_age_1983",
+                   "afi_age2_1983",
+                   "afi_age_1984",
+                   "afi_age2_1984",
+                   "afi_y_1984",
+                   "afi_m_1984",
+                   "afi_age_1985",
+                   "afi_age2_1985",
+                   "afi_y_1985",
+                   "afi_m_1985")
+  return(data)
+}
+
+
+afi_g1 <- qnames(vallabels(new_data))
+
+```
+
+
+
+***  
+- Some will have formatted data and some documentation, 
+    - while others may just have formatted data (perhaps with coding embedded)
+
+- Some will have scans of the original forms...
+
+```{r,include=TRUE, echo=FALSE}
+knitr::include_graphics("E:/Dropbox/Lab/Teaching/Introduction to Statistics/2018 Fall/res/Wave_1_2_140C_Page_06_Image_0002.jpg")
+```
+

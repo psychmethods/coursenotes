@@ -1,0 +1,404 @@
+---
+title: "Describing Data Graphically with R"
+author: "Mason Garrison"
+date: '`r format(Sys.time(), "%B %d, %Y")`'
+bibliography: library.bib
+output:
+  slidy_presentation:
+    font_adjustment: +2
+    fig_caption: true
+    highlight: pygments
+    css: teaching.css
+ 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,out.width="70%",out.extra='style="panel.spacing:10px;"', fig.align = "center",
+                      fig.retina = 2,
+                      tidy.opts=list(width.cutoff = 120),  # For code
+                      options(width = 120), # For output)
+                       message=FALSE, warning=FALSE)  
+
+```
+
+
+# Hans Rosling
+
+<iframe width="560" height="315" align="center" src="https://www.youtube.com/embed/jbkSRLYSojo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+# Summarize
+- Transform a pile of numbers into a summary
+- Descriptive Statistics
+    - Distribution of a variable is a table/graph showing the categories/values of outcomes and their frequency/percentage of occurrence
+    - Exploratory Data Analysis [@tukey1977exploratory]
+
+```{r}
+knitr::include_graphics("res/pic/numberpile.png")
+```
+
+# Exploratory Data Analysis
+
+- @tukey1977exploratory
+    -	EDA
+    - Graphical Data Analysis
+    - Numbers as summaries
+    - Emphasized Robust Statistics
+
+```{r}
+knitr::include_graphics("res/pic/tukey.png")
+```
+
+# Descriptive Statistics
+- Examples
+    - Tables
+    - Graphs
+    - Summary Statistics
+
+#Examples
+- Tables
+    - @Woodbridge1845
+    
+```{r}
+knitr::include_graphics("res/pic/woodbridge1845.png")
+```        
+
+
+# Examples
+- Graphs
+    - @Minard1869
+    
+```{r}
+knitr::include_graphics("res/pic/minard.png")
+```        
+
+# Examples
+- Summary Statistics
+    - Measures of Central Tendency
+    - Measures of Spread
+    
+```{r}
+knitr::include_graphics("res/pic/centralbears.jpg")
+```        
+   
+# Categorical Variable Displays (Nominal, Ordinal)
+
+- Frequency Distribution Graphs
+    - Bar Chart
+    - Pie Chart
+- Quantitative Variables
+    - Histograms
+    - Stem plots
+- Time Plots  
+
+
+# Frequency distribution graph    
+
+<div style="float: left; width: 50%;">
+- Bart Chart
+    - Graphs of variables with categories of outcomes on the x axis; and the frequency or percent of each category on the Y axis.
+ 
+</div>
+
+<div style="float: right; width: 50%;">
+
+![Nicole Oresme (Bishop of Lisieus) circa 1350](res/pic/oresme.jpg){}
+</div>
+
+
+# Bar Graph/Chart
+
+```{r, echo=TRUE}
+# Bar chart
+library(car)
+counts <- table(mtcars$gear)
+barplot(counts, main="Car Distribution",
+  	xlab="Number of Gears")
+
+```
+  
+
+# Stacked Bar Chart
+```{r, echo=TRUE}
+df <- data.frame(
+  group = c("Male", "Female", "Child"),
+  value = c(25, 25, 50)
+  )
+head(df)
+
+library(ggplot2)
+# Barplot
+bp<- ggplot(df, aes(x="", y=value, fill=group))+
+geom_bar(width = 1, stat = "identity")
+bp
+```
+
+# Pie Chart
+<div style="float: left; width: 50%;">
+- Graphs of variables with categories of outcomes as frequency or percent of each category in the pie.
+</div>
+
+<div style="float: right; width: 50%;">
+
+![A pie chart showing each state in the United States, part of Playfair's translation of A Statistical Account of the United States of America by D. F. Donnant.](res/pic/pieplay.jpg){}
+</div>
+
+# R Examples
+
+```{r, echo=TRUE}
+
+# Pie chart
+# Example 1
+slices <- c(10, 12,4, 16, 8)
+lbls <- c("US", "UK", "Australia", "Germany", "France")
+pie(slices, labels = lbls, main="Pie Chart of Countries")
+
+# Example 2
+mytable <- table(iris$Species)
+lbls <- paste(names(mytable), "\n", mytable, sep="")
+pie(mytable, labels = lbls,
+		main="Pie Chart of Species\n (with sample sizes)")
+
+```
+
+
+
+# Convert Bar Chart into Pie Chart
+```{r, echo=TRUE}
+pie <- bp + coord_polar("y", start=0)
+
+pie
+
+pie + scale_fill_manual(values=c("#999999", "#E69F00", "#56B4E9"))
+```
+
+[Additional Resources](http://www.sthda.com/english/wiki/ggplot2-pie-chart-quick-start-guide-r-software-and-data-visualization) 
+
+# Quantitative Variables 
+
+- Interval or Ratio Scales
+    - Histograms
+    - Stem plots
+    - Time plots
+
+
+# Histogram 
+- A histogram is a graphical representation of the distribution of numerical data.
+    - Approximates a probability distribution
+    - First described in @Pearson1895.
+
+```{r echo=TRUE}
+# Histogram
+library(MASS)
+variable<-cats$Bwt
+hist(variable)
+variable<-variable*2.2   #Convert to Imperial
+hist(variable)
+```
+
+
+# Stemplot 
+- Sometimes called a stem and leaf diagram
+
+```{r, echo=TRUE}
+# Stem and Leaf plot
+stem(faithful$eruptions,scale=1)
+```
+
+
+# Time Plots
+
+```{r}
+knitr::include_graphics("res/pic/minard.png")
+```  
+
+- Edward Tufte has said that Minard's plot: 
+
+    > "may well be the best statistical graphic ever drawn" 
+
+- It packs a ton of information into one dense figure. 
+
+
+
+# Time Plots
+
+```{r}
+knitr::include_graphics("res/pic/minard.png")
+```  
+
+
+- The plot contains six variables, each mapped to a different aesthetic:
+
+
+
+| Information                           | Aesthetic       |
+|---------------------------------------|-----------------|
+| Size of Napoleon's Grande Armée       | Width of path   |
+| Longitude of the army's position      | x-axis          |
+| Latitude of the army's position       | y-axis          |
+| Direction of the army's movement      | Color of path   |
+| Date of points along retreat path     | Text below plot |
+| Temperature during the army's retreat | Line below plot |
+
+# Recreation in R
+- This plot has been recreated in R by:
+    - [Andrew Heiss](https://www.andrewheiss.com/blog/2017/08/10/exploring-minards-1812-plot-with-ggplot2/)
+    - [Michael Friendly](http://www.datavis.ca/gallery/re-minard.php)
+    - @Wickham2010 [link](https://www.tandfonline.com/doi/suppl/10.1198/jcgs.2009.07098?scroll=top)
+
+```{r load-libraries-data,echo=TRUE, warning=FALSE}
+library(tidyverse)
+library(lubridate)
+library(ggplot2)
+library(ggmap)
+library(ggrepel)
+library(gridExtra)
+library(psych)
+#Download Directly
+download=FALSE # set to true to download
+if(download){
+ cities <- read.table("https://raw.githubusercontent.com/andrewheiss/fancy-minard/master/input/minard/cities.txt",
+                      header = TRUE, stringsAsFactors = FALSE)
+ 
+ troops <- read.table("https://raw.githubusercontent.com/andrewheiss/fancy-minard/master/input/minard/troops.txt",
+                      header = TRUE, stringsAsFactors = FALSE)
+ temps <- read.table("https://raw.githubusercontent.com/andrewheiss/fancy-minard/master/input/minard/temps.txt",
+                     header = TRUE, stringsAsFactors = FALSE)
+}else{
+
+
+cities <- read.table("res/dat/cities.txt",
+                     header = TRUE, stringsAsFactors = FALSE)
+troops <- read.table("res/dat/troops.txt",
+                     header = TRUE, stringsAsFactors = FALSE)
+temps <- read.table("res/dat/temps.txt",
+                    header = TRUE, stringsAsFactors = FALSE)
+}
+
+describe(cities)
+describe(troops)
+describe(temps)
+
+temps$date <- as.Date(strptime(temps$date,"%d%b%Y"))
+temps.nice <- temps %>%
+  mutate(nice.label = paste0(temp, "°, ", month, ". ", day))
+```
+
+
+```{r combined-simple, fig.width=10, fig.height=4.75,echo=TRUE}
+
+march.1812.plot.simple <- ggplot() +
+  geom_path(data = troops, aes(x = long, y = lat, group = group, 
+                               color = direction, size = survivors),
+            lineend = "round") +
+  geom_point(data = cities, aes(x = long, y = lat),
+             color = "#DC5B44") +
+  geom_text_repel(data = cities, aes(x = long, y = lat, label = city),
+                  color = "#DC5B44") +
+  scale_size(range = c(0.5, 10)) + 
+  scale_colour_manual(values = c("#DFC17E", "#252523")) +
+  guides(color = FALSE, size = FALSE) +
+  theme_nothing()
+
+march.1812.plot.simple
+
+# Change the x-axis limits to match the simple map
+temps.1812.plot <- ggplot(data = temps.nice, aes(x = long, y = temp)) +
+  geom_line() +
+  geom_label(aes(label = nice.label),
+             size = 2.5) + 
+  labs(x = NULL, y = "° Celsius") +
+  scale_x_continuous(limits = ggplot_build(march.1812.plot.simple)$layout$panel_ranges[[1]]$x.range) +
+  scale_y_continuous(position = "right") +
+  coord_cartesian(ylim = c(-35, 5)) +  # Add some space above/below
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.text.x = element_blank(), axis.ticks = element_blank(),
+        panel.border = element_blank())
+
+temps.1812.plot
+
+# Combine the two plots
+both.1812.plot.simple <- gtable_rbind(ggplotGrob(march.1812.plot.simple),
+                               ggplotGrob(temps.1812.plot))
+
+both.1812.plot.simple
+
+# Adjust panels
+panels <- both.1812.plot.simple$layout$t[grep("panel", both.1812.plot.simple$layout$name)]
+
+# Because this plot doesn't use coord_equal, 
+# since it's not a map, we can use whatever relative numbers we want, like a 3:1 ratio
+both.1812.plot.simple$heights[panels] <- unit(c(3, 1), "null")
+
+grid::grid.newpage()
+grid::grid.draw(both.1812.plot.simple)
+```
+
+# Side by Side
+
+```{r}
+knitr::include_graphics("res/pic/minard.png")
+```
+
+
+```{r fig.width=10, fig.height=4.75,echo=FALSE}
+grid::grid.newpage()
+grid::grid.draw(both.1812.plot.simple)
+```  
+
+
+# More Accessible Resources
+
+- [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/)
+
+- [intRo](http://www.intro-stats.com/)
+
+
+# R Basics
+
+Installation
+R can be downloaded from one of the mirror sites in http://cran.r-project.org/mirrors.html. You should pick your nearest location.
+
+Using External Data
+R offers plenty of options for loading external data, including Excel, Minitab and SPSS files. We have included a tutorial titled Data Import on the subject for the purpose.
+
+R Session
+After R is started, there is a console awaiting for input. At the prompt (>), you can enter numbers and perform calculations.
+
+> 1 + 2 
+[1] 3
+Variable Assignment
+We assign values to variables with the assignment operator "=". Just typing the variable by itself at the prompt will print out the value. We should note that another form of assignment operator "<-" is also in use.
+
+> x = 1 
+> x 
+[1] 1
+Functions
+R functions are invoked by its name, then followed by the parenthesis, and zero or more arguments. The following apply the function c to combine three numeric values into a vector.
+
+> c(1, 2, 3) 
+[1] 1 2 3
+Comments
+All text after the pound sign "#" within the same line is considered a comment.
+
+> 1 + 1      # this is a comment 
+[1] 2
+Extension Package
+Sometimes we need additional functionality beyond those offered by the core R library. In order to install an extension package, you should invoke the install.packages function at the prompt and follow the instruction.
+
+> install.packages()
+Getting Help
+R provides extensive documentation. For example, entering ?c or help(c) at the prompt gives documentation of the function c in R. Please give it a try.
+
+> help(c)
+If you are not sure about the name of the function you are looking for, you can perform a fuzzy search with the apropos function.
+
+> apropos("nova") 
+[1] "anova"                "anova.glm" 
+   ....
+
+
+# References

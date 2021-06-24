@@ -1,0 +1,179 @@
+---
+title: "Last Day"
+author: "S. Mason Garrison"
+date: '`r format(Sys.time(), "%B %d, %Y")`'
+output:
+  slidy_presentation:
+    fig_caption: yes
+    font_adjustment: 2
+    highlight: pygments
+    df_print: kable
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Last Day
+
+- Reminders
+    - Extra Credit Friday 7 p.m. via brightspace
+    - Take Home Final Starts Friday at 5 p.m.
+        - Is Due on Saturday December 15th at 7:00 pm.
+    - Course Evals (Please do them!)
+        - What you liked, disliked
+        - What you wish I covered more of, Less of
+    
+# Exam Format
+- 8 Questions
+    - Pick 6
+    - Can't skip parts within a question
+
+# Big Picture
+
+- Goals of this class were:
+    - Improve your statistical literacy
+    - Introduce you to R
+    
+- Content covered
+    - Research Process/Design
+    - Measurement
+    - Describing Data
+    - Visualizing Data
+    - Normal Distributions
+    - Probability
+    
+****
+- Content covered...
+    - Expected Value
+    - Binomial Distributions
+    - Hypothesis Testing
+    - T-tests
+    - Correlation
+    - Regression
+    - ANOVA
+    - F-Tests
+    - Causal Inference...
+    
+# Numerous Other topics
+- Structural Equation Modeling
+- Survival Analysi
+- Categorical Data Analysis
+- Non-Parametric Statistics
+- Clinical Research Methods
+- Factor Analysis
+- Item Response Theory
+- Multilevel Modeling
+- Multivariate Statistics
+- Bayesian Modeling
+- Behavior Genetics
+- Exploratory \& Graphical Data Analysis
+- Measurement etc
+
+# Suggested Resources
+- MooCs
+    - [edX](https://www.edx.org/course/subject/data-analysis-statistics), [Coursera](https://www.coursera.org/browse/data-science)
+    - [Introduction to R for Data Science](https://www.edx.org/course/introduction-r-data-science-1)
+- Books
+    - [Edward Tufte - THE VISUAL DISPLAY OF QUANTITATIVE INFORMATION](https://www.edwardtufte.com/tufte/books_vdqi)
+    - [Darrell Huff- How to Lie with Statistics](https://archive.org/details/HowToLieWithStatistics)
+    - [Nate Silver - Signal and the Noise](https://www.nytimes.com/2012/11/04/books/review/the-signal-and-the-noise-by-nate-silver.html)
+- Minors
+    - [Quantitative Methods Minor](https://peabody.vanderbilt.edu/departments/psych/undergraduate_programs/quantitative_methods_minor.php)
+    - [Data Science Institute](https://www.vanderbilt.edu/datascience/) 
+
+# More Resources
+- [GitHub Student Developer Pack](https://education.github.com/pack/join)
+- [Longer List](https://github.com/AchoArnold/discount-for-student-dev#software-packs)
+
+# Junk Charts
+- The Trifecta Checkup involves only three investigations: 
+    - What is the QUESTION?
+    - What does the DATA say?
+    - What does the VISUAL say?
+    
+```{r,include=TRUE, echo=FALSE}
+knitr::include_graphics("E:\\Dropbox\\Lab\\Teaching\\Introduction to Statistics\\2018 Fall\\res\\pic\\jc3.png")
+```
+
+- [Examples](https://junkcharts.typepad.com/junk_charts/junk-charts-trifecta-checkup-the-definitive-guide.html)
+
+# 0. The trifecta
+- Josh Katz’s [dialect maps ](https://junkcharts.typepad.com/junk_charts/2014/05/how-effective-visualization-brings-data-alive.html)
+- reveal interesting spatial patterns in a set of good data that addresses an interesting question.
+
+```{r,include=TRUE, echo=FALSE}
+knitr::include_graphics("E:\\Dropbox\\Lab\\Teaching\\Introduction to Statistics\\2018 Fall\\res\\pic\\soda.png")
+```
+
+# 1. The singles
+- Type Q
+    - Some charts use a good source of data effectively presented in a visual display. However, the effort fails because of a poorly defined objective, or an unengaging premise.
+    
+- Example: The global liquor consumption chart does a great job with some UN data in a small-multiples presentation but it’s not clear why the question is interesting.
+
+```{r,include=TRUE, echo=FALSE}
+knitr::include_graphics("E:\\Dropbox\\Lab\\Teaching\\Introduction to Statistics\\2018 Fall\\res\\pic\\q1.png")
+```
+
+****
+- Type D
+    - Some designs emerge from well posed and interesting questions, and the graph is well executed. The problem here is the data, which fail to illuminate the question. Typically the data only tangentially concern the topic, or certain adjustments are wanting, or there is a quality concern.
+    
+- Example: NYT's CPI Component Price Drop chart suffers from over-processed data but the chart is well-executed and the question being addressed is important and relevant.
+
+```{r,include=TRUE, echo=FALSE}
+knitr::include_graphics("E:\\Dropbox\\Lab\\Teaching\\Introduction to Statistics\\2018 Fall\\res\\pic\\d1.png")
+```
+
+
+
+****
+- Type V
+    - Despite having a good data source and an interesting, well-posed problem, the visual design hides or confuses the message. These charts have long provided fodder for Tufte, Wainer and the like.
+    
+- Example: Arctic Ice Death Spiral concerns an existential problem, and as far as I know, the data are standard fare but the chart fails because of the spiral design.
+
+```{r,include=TRUE, echo=FALSE}
+knitr::include_graphics("E:\\Dropbox\\Lab\\Teaching\\Introduction to Statistics\\2018 Fall\\res\\pic\\v1.jpg")
+```
+
+# 2. Doubles
+- Type QD
+    - The graphical elements follow best practices, and present the data well. This effort is in vain, because of poor data quality, and an unclear objective.
+    
+- Example: NYT’s Mirth and Taxes scatter plot has commendable production values but this difficult problem is tough to nail down, and finding good data is hard.
+
+```{r,include=TRUE, echo=FALSE}
+knitr::include_graphics("E:\\Dropbox\\Lab\\Teaching\\Introduction to Statistics\\2018 Fall\\res\\pic\\qd.png")
+```
+
+****
+- Type QV
+    - The data has been properly collected and processed. However, the question being addressed has not been clearly defined, and the graphical design fails to bring out the key features of the data.
+    
+- Example: New York City 311 Calls by the hour visualizes a good dataset but it’s hard to know what the motivating question is, the insights are mundane, and further confused by the use of the streamgraph.
+
+```{r,include=TRUE, echo=FALSE}
+knitr::include_graphics("E:\\Dropbox\\Lab\\Teaching\\Introduction to Statistics\\2018 Fall\\res\\pic\\qv.jpg")
+```
+
+****
+- Type DV
+    - An interesting question has been posed. The data fail to convince, and the cause is not helped by poor execution of the graphical elements.
+    
+- Example: The chart about the unfulfilled promise of long-tail music sales draws us in with a nice question but the data do not give a good answer, and the visual elements are poorly executed.
+
+```{r,include=TRUE, echo=FALSE}
+knitr::include_graphics("E:\\Dropbox\\Lab\\Teaching\\Introduction to Statistics\\2018 Fall\\res\\pic\\dv.jpg")
+```
+
+# Triple (Type QDV)
+- These graphical disasters do not get anything right.
+
+- Example: The Citibike chart by WSJ's Numbers Guy
+
+```{r,include=TRUE, echo=FALSE}
+knitr::include_graphics("E:\\Dropbox\\Lab\\Teaching\\Introduction to Statistics\\2018 Fall\\res\\pic\\qdv.jpg")
+```
+
+# Course Evals

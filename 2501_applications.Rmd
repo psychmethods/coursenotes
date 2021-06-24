@@ -1,0 +1,199 @@
+---
+title: "More Applications in R"
+date: '`r format(Sys.time(), "%B %d, %Y")`'
+bibliography: library.bib
+output:
+  slidy_presentation:
+    css: teaching.css
+    fig_caption: yes
+    font_adjustment: 2
+    highlight: pygments
+    df_print: kable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,out.width="75%", fig.align = "center",fig.retina = 2,
+                      tidy.opts=list(width.cutoff = 120),  # For code
+                      options(width = 120), # For output)
+                      message=FALSE, warning=FALSE)  
+options(digits = 3)
+```
+
+# Announcement
+- The Final Exam will be take home.
+    - Open Notes, Open Book, Open Internet, Open Computer
+    - You can't consult with classmates.
+    - But you can ask me questions.
+        - I will have extended office hours.
+- The exam will be made available on Friday December 7th at 5pm (through brightspace)
+- It will be due on brightspace on Saturday December 15th at 7:00 pm.
+    - Grades are due on Dec 17, 2018 — 11:59 p.m.
+
+
+# Design
+- We have selected our question 
+    - and operationalized it.
+    
+- Now we have to decide on our design
+- Whether we have our data already influences this stage.
+- If we're collecting data,
+    - We have to decide on a broad design:
+        - Will is be experimental? 
+        - Quasi-experimental? 
+        - Observational?
+        
+***
+
+- If we're not collecting our own data,
+    - It's a bit trickier.
+        - We're limited by the data we have.
+    - It's a bit of an art...
+        - We can approach multiple ways...
+            - Start with your idealized design 
+                - and see how close you can get to that design with data that are available
+            - Start with the data you have, and develop your design
+            - Start with a statistical test in mind... etc
+            - Start with a model...
+            
+# Sampling
+
+- If we're collecting our own data,
+    - then we need to think about how we select participants.
+    - And how those participants represent the population we're interested in.
+    
+***
+- If we're using pre-existing data,
+    - then we need to figure out how these data were selected
+    - and how those data represent the population we're interested in.
+    - Consider:
+        - Using a subset of the data
+    
+# Measurement
+- If we're collecting our own data,
+    - then we have control over how are data are collected
+        - which measures
+        - what order they're presented in, etc
+
+***
+- If we're using pre-existing data,
+    - then we need to figure out what was collected, 
+    - how it was collected
+    - are we limited to scale scores 
+        - or can we have item-level information
+
+# Summary
+- Regardless of whether we collected our own data or used pre-existing data -- the process is similar (if not identical)
+- We must decide how to summarize our findings
+    - Which descriptive statistics do we use?
+        - Robust or Classic?
+    - Which plots?
+        - scatter, pie, time, etc
+    - Which statistical tests?
+        - t-test? anova? regression? etc
+
+
+# Illustration
+- Question: Does seatbelt legislation reduce car-related deaths?
+- Data: Seatbelts dataset from the datasets library
+    - Source: Harvey, A. C. and Durbin, J. (1986). The effects of seat belt legislation on British road casualties: A case study in structural time series modelling. Journal of the Royal Statistical Society series A, 149, 187–227. doi: 10.2307/2981553.
+    
+
+- Operationalization:
+    - Seatbelt legislation: The presence or absence of compulsory wearing of seatbelts in the UK (started 31 Jan 1983) by month
+    - Deaths:
+        - Drivers Killed per month
+        - Van Drivers Killed per month
+        - (Passengers are recorded as killed or seriously injured)
+
+- Hypothesis:
+    - Null: Average monthly deaths don't vary whether the law is in effect
+        - $H_{0}$: $\mu_{prelaw}=\mu_{postlaw}$
+    - Alternative: The average monthly deaths are lower when the law is in effect.
+        - $H_{1}$: $\mu_{prelaw}>\mu_{postlaw}$
+
+- Statistical Test
+    - two sample t-test
+
+```{r,include=TRUE, echo=TRUE}
+
+library(datasets)
+data("Seatbelts")
+
+df=as.data.frame(Seatbelts)
+
+# Summary Statistics
+summary(df)
+
+# by groups?
+
+library(psych)
+describeBy(df,group=df$law)
+
+# t-test
+
+## directional
+t.test(DriversKilled~law, data=df,alternative="greater",var.equal = TRUE)
+
+## directional (wrongway
+t.test(DriversKilled~law,data=df,alternative="less",var.equal = TRUE)
+
+## basic plot
+plot(DriversKilled ~ law, data = df)
+```
+
+- Verdict: Reject the Null
+- Question: Is it causal?
+    - Why or why not?
+- Question: What third variables might be involved?
+
+
+# Additional Analyses
+
+- Findings from the paper (Harvey and Durbin, 1986)
+- "Overall, for the twenty three month period from February 1983 to December 1984, 
+- we estimate the reduction due to the law in numbers [of killed or severely injured] for drivers and front seat passengers as 15,600. 
+- The estimated reduction in numbers killed is 879."
+
+```{r jarss, echo=TRUE}
+
+## work with pre-seatbelt period to identify a model, use logs
+work <- window(log10(UKDriverDeaths), end = 1982+11/12)
+#par(mfrow = c(3, 1))
+plot(work)#; acf(work); pacf(work) # estimates autocovariance across time
+par(mfrow = c(1, 1))
+(fit <- arima(work, c(1, 0, 0), seasonal = list(order = c(1, 0, 0))))
+z <- predict(fit, n.ahead = 24)
+ts.plot(log10(UKDriverDeaths), z$pred, z$pred+2*z$se, z$pred-2*z$se,
+        lty = c(1, 3, 2, 2), col = c("black", "red", "blue", "blue"))
+
+## now see the effect of the explanatory variables
+X <- Seatbelts[, c("kms", "PetrolPrice", "law")]
+X[, 1] <- log10(X[, 1]) - 4
+arima(log10(Seatbelts[, "drivers"]), c(1, 0, 0),
+      seasonal = list(order = c(1, 0, 0)), xreg = X)
+```
+
+# In class examples
+- Using a dataset from the dataset library
+- We will document these processes in class, 
+    - and I'll upload the resulting .R files afterwards
+
+# R Example
+```{r echo=TRUE, include=TRUE}
+
+library(HistData)
+data(DrinksWages)
+
+DrinksWages[1,]
+
+summary(DrinksWages)
+
+DrinksWages$trade
+
+#cor(DrinksWages)
+## Error in cor(DrinksWages) : 'x' must be numeric
+
+cor(DrinksWages$drinks,DrinksWages$wage)
+
+lm(data=DrinksWages, wage~drinks)
+```

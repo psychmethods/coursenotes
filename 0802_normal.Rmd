@@ -1,0 +1,312 @@
+---
+title: "Normal Distributions and Rescaling"
+author: "Mason Garrison"
+date: '`r format(Sys.time(), "%B %d, %Y")`'
+bibliography: library.bib
+output:
+ 
+  slidy_presentation:
+    css: teaching.css
+    fig_caption: yes
+    font_adjustment: 2
+    highlight: pygments
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,out.width="90%", fig.align = "center",fig.retina = 2,
+                      tidy.opts=list(width.cutoff = 120),  # For code
+                      options(width = 120), # For output)
+                       message=FALSE, warning=FALSE)  
+
+```
+
+
+# Normal Distribution
+
+Def: a particular bell-shaped curve that has the following mathematical properties
+
+$f(x)= \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^{2}}$
+
+- Formula has two parameters
+    - $\mu$
+    - $\sigma$
+
+- The standard normal ($\mu=0$; $\sigma=1$) simplifies the equation
+
+
+
+
+
+# Plots of the Standard Normal with multiple means
+
+- The mean is located at the center of the symmetric curve and is the same as the median. 
+- Changing $\mu$ without changing $\sigma$ moves the Normal curve along the horizontal axis without changing its variability.
+
+```{r}
+#### Normal Distribution
+
+# Display the normal distributions with various means
+
+x <- seq(-80, 80, length=1000)
+hx <- dnorm(x)
+colors <- c("red", "blue","green", "green", "gold", "black")
+
+plot(x, hx, type="l", lty=2, xlab="x value",
+		 ylab="Density", main="Comparison of normal Distributions",xlim=c(-5, 7))
+location<-c(2,4,-2)
+for (i in 1:3){
+	lines(x, dnorm(x,mean=location[i]), lwd=1, col=colors[i])
+}
+
+```
+
+# Plots of the Standard Normal with multiple standard deviations
+
+- The standard deviation $\sigma$ controls the variability of a Normal curve. When the standard deviation is larger, the area under the normal curve is less concentrated about the mean.
+
+- The standard deviation is the distance from the center to the change-of-curvature points on either side.
+
+```{r}
+# Display the normal distributions with various standard deviations
+plot(x, hx, type="l", lty=2, xlab="x value",
+		 ylab="Density", main="Comparison of normal Distributions",xlim=c(-10, 10))
+
+for (i in c(.5,2,4,6)){
+	lines(x, dnorm(x,sd=i), lwd=1, col=colors[i])
+}
+
+```
+
+
+# Normal Distribution
+
+- In the Normal distribution, with mean $\mu$  and standard deviation $\sigma$:
+    - approximately 68\% of the observations fall within 1 $\sigma$ of $\mu$
+    - approximately 95\% of the observations fall within 2 $\sigma$ of $\mu$
+    - approximately 99.7\% of the observations fall within 3 $\sigma$ of $\mu$
+
+- This property is sometimes called: The 68-95-99.7 Rule
+
+```{r}
+knitr::include_graphics("res/pic/normal.png")
+```
+
+
+# Worked Example
+
+- The distribution of Iowa Test of Basic Skills (ITBS) vocabulary scores for seventh-grade students in Gary, Indiana, is close to Normal. 
+
+- Suppose the distribution is N(6.84, 1.55).
+
+- Sketch the Normal density curve for this distribution.
+
+- What percent of ITBS scores is between 3.74 and 9.94?
+
+- What percent of the scores is above 5.29?
+
+```{r}
+knitr::include_graphics("res/pic/norms.png")
+```
+
+
+
+# Standard Normal
+
+- Normal is a model of the real world
+- Not exact, but it is a facile model for many things
+    - Physical features
+    - Psychological features
+    - Performance measures
+    - Not all variables are normal
+        - Skewed variables (e.g. income)
+        - Any count variable (number of kids, mistakes on an exam)
+
+# Real World Data
+
+- Many variables follow this distribution ( but not all)
+- I have plotted histograms of data,
+    - we have already used in this class
+    - overlaid with the standard normal.
+ 
+```{r example,echo=TRUE, warning=FALSE}
+library(HistData)
+library(ggplot2)
+
+ggplot(Galton, aes(x = child)) + 
+	geom_histogram(fill = "red") + 
+	stat_function(
+		fun = function(x, mean, sd, n){
+			n * dnorm(x = x, mean = mean, sd = sd)
+		}, 
+		args = with(Galton, c(mean = mean(child), sd = sd(child), n
+= length(child)))
+	) + 
+	scale_x_continuous("Heights of Children") 
+
+```
+ 
+    
+# Height of Children (Galton dataset)
+```{r galton,echo=FALSE, warning=FALSE}
+library(HistData)
+library(ggplot2)
+
+ggplot(Galton, aes(x = child)) + 
+	geom_histogram(fill = "red") + 
+	stat_function(
+		fun = function(x, mean, sd, n){
+			n * dnorm(x = x, mean = mean, sd = sd)
+		}, 
+		args = with(Galton, c(mean = mean(child), sd = sd(child), n
+= length(child)))
+	) + 
+	scale_x_continuous("Heights of Children") 
+
+```
+
+
+# IMBD movie ratings (movies dataset)
+```{r movies,echo=FALSE, warning=FALSE}
+library(ggplot2movies)
+data(movies)
+
+plotted_dataset=movies
+plotted_dataset$variablex=movies$rating
+variablex=movies$rating
+
+ggplot(plotted_dataset, aes(x =variablex)) + 
+	geom_histogram(fill = "red") +
+	geom_freqpoly(aes(x=rnorm(length(plotted_dataset$variablex))*sd(plotted_dataset$variablex)+mean(plotted_dataset$variablex)),fill = "black")  +
+	scale_x_continuous("IMBD Movie Ratings")  
+
+
+```
+
+# Temperature in Nottingham (nottem dataset)
+
+```{r nottem,echo=FALSE, warning=FALSE}
+library(datasets)
+library(ggplot2)
+
+plotted_dataset=as.data.frame(nottem)
+plotted_dataset$variablex=nottem
+ggplot(plotted_dataset, aes(x =variablex)) + 
+	geom_histogram(fill = "red") + 
+	stat_function(
+		fun = function(x, mean, sd, n){
+			n * dnorm(x = x, mean = mean, sd = sd)
+		}, 
+		args = with(plotted_dataset, c(mean = mean(variablex), sd = sd(variablex), n
+= length(variablex)))
+	) + 
+	scale_x_continuous("Temperature in Nottingham") 
+
+```
+
+     
+# Standard Normal
+- Normal distribution tricks
+    - Symmetric
+    - 50% of area above zero
+    - Total proportion is 1.0 (or 100%)
+    
+# Area under the Normal Distribution
+
+```{r}
+knitr::include_graphics("res/pic/normal.png")
+```
+
+
+# Rescaling
+
+- All Normal distributions are the same if we measure in units of size $\sigma$ from the mean $\mu$ as center.
+
+- We can convert any variable into the same metric as the standard normal
+
+- Changing to these units is called standardizing  or rescaling.
+
+
+
+# Converting Formulas
+
+- Statistics Sample
+- $z_{i}$ = $\frac{x_{i}-\bar{x}}{s}$
+
+- Population
+- $z_{i}$ = $\frac{x_{i}-\mu}{\sigma}$
+
+# Merits
+- Advantages
+    - Allows us to compare scores on a common metric 
+    - Origin is 0. The mean
+        - The units are 1, the standard deviation
+        - + values above the mean
+        - - values below the mean
+   
+- We can compare across measurement scales
+    - Shape of the distribution does NOT CHANGE
+- We can go from z-scores to raw scores
+
+```{r,echo=TRUE}
+
+library(ggplot2movies)
+################ Rescaling
+variable<-movies$rating
+scale(variable)[1:10]
+
+plot(density(variable)) # no scaling
+plot(density(scale(variable))) # with scaling
+
+```
+
+
+# Worked Z-Score Problem
+
+- Here are the IQ test scores of 31 7th-grade girls in a Midwest school district. 
+```{r}
+knitr::include_graphics("res/pic/iqz.png")
+```
+
+# Worked Z-Score Problem
+A) We expect IQ scores to be approximately Normal. Make a stem plot to check that there are no major departures from normality.
+
+```{r}
+knitr::include_graphics("res/pic/iqstem.png")
+```
+
+# Worked Z-Score Problem
+B) Find the mean and standard deviation
+- Mean =105.84 = $\sum \frac{X_{i}}{n}$ = 3281/31
+- SD = 14.27 =  $s^{2}$ = $\frac{\sum^{n}_{i=1}(x_{i}-\bar{x})^{2}}{n-1}$ =  $s^{2}$ = $\frac{\sum^{n}_{i=1}(x_{i}-105.84)^{2}}{30}$
+
+# Worked Z-Score Problem
+B) What proportion of scores are within one standard deviation of the mean?
+
+- One SD above mean = 105.84+14.27 = 120.11
+- One SD below mean = 105.84 -14.27 = 91.57
+
+- 23/31 = .74
+```{r}
+knitr::include_graphics("res/pic/workz.png")
+```
+
+
+# Worked Z-score Problem
+
+B) What proportion of scores are within TWO standard deviations of the mean?
+
+- TWO SD above mean = 105.84+2(14.27) = 134.38
+- TWO SD below mean = 105.84 - 2(14.27) = 77.3
+- 29/31 = .935
+
+# Worked Z-score Problem
+B) What would these proportions be in an exactly Normal distribution?
+-  +/- One SD
+
+- Continued in Power Point 08C
+
+
+```{r}
+knitr::include_graphics("res/pic/table.png")
+```
+
