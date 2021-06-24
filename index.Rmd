@@ -22,7 +22,7 @@ favicon: assets/favicon.ico
 
 # (PART\*) Front Matter {-}
 
-# Welcome to PSY 255 {-}
+# Welcome to PSY 310 {-}
 
 
 ```{r include = FALSE}
