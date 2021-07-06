@@ -1,14 +1,4 @@
----
-title: "Last Day"
-author: "S. Mason Garrison"
-date: '`r format(Sys.time(), "%B %d, %Y")`'
-output:
-  slidy_presentation:
-    fig_caption: yes
-    font_adjustment: 2
-    highlight: pygments
-    df_print: kable
----
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
