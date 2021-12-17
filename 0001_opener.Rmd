@@ -3,7 +3,7 @@
 # Don't Miss Module 00 {-}
 
 ```{r include = FALSE}
-source("common.R")
+source("code/common.R")
 #htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 library(tidyverse)
 library(devtools)

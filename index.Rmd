@@ -26,7 +26,7 @@ favicon: assets/favicon.ico
 
 
 ```{r include = FALSE}
-source("common.R")
+source("code/common.R")
 htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 library(tidyverse)
 library(devtools)

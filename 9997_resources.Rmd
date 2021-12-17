@@ -1,7 +1,7 @@
 # (PART) Other Coolness {-}
 
 ```{r include = FALSE}
-source("common.R")
+source("code/common.R")
 
 # install.packages("devtools")
 

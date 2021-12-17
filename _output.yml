@@ -19,8 +19,15 @@ bookdown::gitbook:
           </a>
         </li></center>
     download: ["rmd", "epub"]
-    edit: https://github.com/smasongarrison/psychstats/edit/main/%s
+    edit: https://github.com/DataScience4Psych/DataScience4Psych/edit/main/%s
     sharing:
       github: yes
       facebook: no
       twitter: yes
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+bookdown::epub_book: default

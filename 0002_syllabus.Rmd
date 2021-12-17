@@ -1,7 +1,7 @@
 # Syllabus {-}
 
 ```{r include = FALSE}
-source("common.R")
+source("code/common.R")
 ```
 
 ```{r links, child="links.md"}

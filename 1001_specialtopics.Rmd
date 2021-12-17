@@ -1,7 +1,7 @@
 # (PART) Module XX {-}
 
 ```{r include = FALSE}
-source("common.R")
+source("code/common.R")
 
 # install.packages("devtools")
 
