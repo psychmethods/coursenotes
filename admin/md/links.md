@@ -1,14 +1,18 @@
 
-<!--CN4P Links-->
-[web]: https://smasongarrison.github.io/personality
-[git]: https://github.com/smasongarrison/personality
-[slides]: https://github.com/DataScience4Psych/slides
-[edits]: https://github.com/smasongarrison/personality/commits/main
+<!--Links-->
+
+
+[course_web]: https://psychmethods.github.io/coursenotes
+[course_git]: https://github.com/psychmethods/coursenotes
+[course_repo]: https://github.com/psychmethods
+[course_slides]: https://github.com/psychmethods/slides
+[course_syllabus]: https://smasongarrison.github.io/syllabi/data-science.html
+[syllabi]: https://smasongarrison.github.io/syllabi
+
 
 [pl-00]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaEAnJX20Ryy4OSie375rVY
 [pl-01]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZ2BXy4ypzoPdA39mszdnlc
 [pl-02]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbl28Bp_qnCAuXqGT3fXlvf
-
 [pl-03]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaHmjzdRvfg0yhOIYQnfjwE
 [pl-04]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYWFcel6_vp8__RUKLxhX4y
 [pl-05]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYMIguiV1F8RagMYibTY4iW
@@ -23,6 +27,8 @@
 [pl-14]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbWGmSnbLIYwdLOnGm6une6
 [pl-15]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYa5MoYrV8EsWQ5jIr5ZYMpM
 [pl-all]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbWGmSnbLIYwdLOnGm6une6
+
+
 
 <!-- keep-->
 
