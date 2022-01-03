@@ -6,8 +6,8 @@ author:
 date: "`r Sys.Date()`"
 knit: "bookdown::render_book"
 site: bookdown::bookdown_site
-url: 'https://smasongarrison.github.io/personality/'
-github-repo: smasongarrison/personality
+url: 'https://psychmethods.github.io/coursenotes/'
+github-repo: psychmethods/coursenotes
 twitter-handle: smasongarrison
 cover-image: assets/logo.png
 documentclass: book
