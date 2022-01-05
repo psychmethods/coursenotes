@@ -10,7 +10,7 @@ library(tweetrmd) #... embedding tweets
 class_urls <- read.csv("./data/class_urls.csv")
 ```
 
-```{r links, child="links.md"}
+```{r links, child="admin/md/links.md"}
 ```
 
 # Welcome to TOPIC

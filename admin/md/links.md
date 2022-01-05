@@ -6,7 +6,7 @@
 [course_git]: https://github.com/psychmethods/coursenotes
 [course_repo]: https://github.com/psychmethods
 [course_slides]: https://github.com/psychmethods/slides
-[course_syllabus]: https://smasongarrison.github.io/syllabi/data-science.html
+[course_syllabus]: https://smasongarrison.github.io/syllabi/statsminor.html
 [syllabi]: https://smasongarrison.github.io/syllabi
 
 

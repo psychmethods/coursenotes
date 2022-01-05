@@ -8,7 +8,7 @@ library(vembedr)
 library(knitr)
 ```
 
-```{r links, child="links.md"}
+```{r links, child="admin/md/links.md"}
 ```
 
 
