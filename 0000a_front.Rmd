@@ -20,8 +20,9 @@ This class leans heavily on other peoples' materials and ideas. I have done my b
 ## Major Attributions  {-}
 
 * Jenny Bryan's ([jennybryan]) [STAT 545][stat-545]
-* Joe Rodgers 2101
+* Joe Rodgers's 2101
 * Eric Stone's 210
+* Danielle Navarro's (Learning Statistics with R)[https://learningstatisticswithr.com/]
 
 ## Additional Attributions  {-}
 
