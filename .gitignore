@@ -6,12 +6,12 @@
 .Rhistory
 .Rproj.user
 _bookdown_files/*
+docs/reference-keys.txt
+admin/0000_author.Rmd
+CN4P.md
 
 docs/*.md
 # Specific keeps
 !.gitkeep
+!.nojekyll
 
-
-docs/reference-keys.txt
-admin/0000_author.Rmd
-CN4P.md
