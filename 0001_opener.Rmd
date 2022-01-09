@@ -14,7 +14,7 @@ library(DT)
 ```{r links, child="admin/md/links.md"}
 ```
 
-This overview is designed to orient you to the class as well as show you the rationale underlying them. Every module will follow a similar structure. First, I'll provide an overview of the topic and provide actionable learning goals. Please watch the videos from this [playlist][pl-00] and work your way through the notes. Although the module-level playlists are embedded in the course, you can find the full-course video playlist [here][pl-all].
+This overview is designed to orient you to the class as well as show you the rationale underlying them. Every module will follow a similar structure. First, I'll provide an overview of the topic and provide actionable learning goals. Please watch the videos from this [playlist][pl_00] and work your way through the notes. Although the module-level playlists are embedded in the course, you can find the full-course video playlist [here][pl_all].
 
 
 ```{r, echo=FALSE}
