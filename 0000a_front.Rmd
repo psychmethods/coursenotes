@@ -21,8 +21,8 @@ This class leans heavily on other peoples' materials and ideas. I have done my b
 
 * Jenny Bryan's ([jennybryan]) [STAT 545][stat-545]
 * Joe Rodgers's 2101
-
-* Danielle Navarro's (Learning Statistics with R)[https://learningstatisticswithr.com/]
+* Alisa Beyer [Introduction to Statistics for Psychology](https://open.maricopa.edu/psy230mm/)
+* Danielle Navarro's [Learning Statistics with R](https://learningstatisticswithr.com/)
 
 ## Additional Attributions  {-}
 
