@@ -15,3 +15,4 @@ docs/*.md
 !.gitkeep
 !.nojekyll
 
+*.bak

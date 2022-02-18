@@ -1,4 +1,4 @@
-# (PART) Module XX {-}
+# (PART) Module 05 {-}
 
 ```{r include = FALSE}
 source("code/common.R")
@@ -13,10 +13,10 @@ class_urls <- read.csv("./data/class_urls.csv")
 ```{r links, child="admin/md/links.md"}
 ```
 
-# Welcome to TOPIC
+# Welcome to Bivariate Relationships
 
-This module introduces you to TOPIC. Please work your way through the notes.   Most of the slides can be found in the [slides repo][slides]. 
-
+This module introduces you to Bivariate Relationships. Please work your way through the notes. Most of the slides can be found in the [slides repo][slides]. 
+<!--
 ## Learning Goals
 
 By the end of this module, you should be able to achieve all the learning goals outlined below.
@@ -53,19 +53,18 @@ By the end of this module, you should be able to achieve all the learning goals 
 
 <!--  https://ytplaylist-len.herokuapp.com/ -->
 
-
+-->
 
 # What is TOPIC?
 
-## What is TOPIC? (XX.01)
+## What is TOPIC? (05.01)
 <!-- original version -->
 
 ```{r, echo=FALSE}
-embed_url("https://www.youtube.com/watch?v=0-UuQCMHmkk") %>%
-  use_align("center")
+
+"https://psychmethods.github.io/slides/t06_bivariate/11_Bivariate.html"  %>%
+include_url(height = "400px")
 ```
-
-
 
 ## What do TOPIC? (XX.02)
 <!-- original version -->
