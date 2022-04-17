@@ -20,7 +20,8 @@ This overview is designed to orient you to the class as well as show you the rat
 ```{r, echo=FALSE}
 library(vembedr)
 # fall 2020
-embed_url("https://www.youtube.com/watch?v=gMe4qSDiJfU") %>%
+"https://www.youtube.com/watch?v=gMe4qSDiJfU" %>%
+ embed_url() %>%
   use_align("center")
 ```
 
@@ -76,7 +77,8 @@ I've created a video highlighting how to be a successful asynchronous learner.
 
 
 ```{r, echo=FALSE}
-embed_url("https://www.youtube.com/watch?v=dc3D2tbl8G0") %>%
+"https://www.youtube.com/watch?v=dc3D2tbl8G0" %>%
+ embed_url() %>%
   use_align("center")
 ```
 
@@ -86,7 +88,8 @@ Much of this information comes from Northeastern University's [Tips for Taking O
 ### Productivity During Lockdown
 
 ```{r, echo=FALSE}
-embed_url("https://www.youtube.com/watch?v=snAhsXyO3Ck") %>%
+"https://www.youtube.com/watch?v=snAhsXyO3Ck" %>%
+ embed_url() %>%
   use_align("center")
 ```
 
@@ -94,7 +97,8 @@ embed_url("https://www.youtube.com/watch?v=snAhsXyO3Ck") %>%
 ## Knowledge is Power
 
 ```{r, echo=FALSE}
-embed_url("https://www.youtube.com/watch?v=ZbGMbdDLnyY") %>%
+"https://www.youtube.com/watch?v=ZbGMbdDLnyY" %>%
+ embed_url() %>%
   use_align("center")
 ```
 
@@ -106,7 +110,8 @@ In it, I discuss stereotype threats and statistics anxiety.
 ## Meet Mason
 
 ```{r,echo=FALSE}
-embed_url("https://www.youtube.com/watch?v=1IOCKxgowaQ") %>%
+"https://www.youtube.com/watch?v=1IOCKxgowaQ" %>%
+ embed_url() %>%
   use_align("center")
 ```
 
@@ -127,7 +132,8 @@ So now she has three cats...
 ## Website Tour
 
 ```{r, echo=FALSE}
-embed_url("https://www.youtube.com/watch?v=Fq_hAQd78zo") %>%
+"https://www.youtube.com/watch?v=Fq_hAQd78zo" %>%
+ embed_url() %>%
  use_align("center")
 ```
 

@@ -31,7 +31,8 @@ The text is intended to supplement the videos, lecture notes, tutorials, activit
 #### R and RStudio
 
 ```{r, echo=FALSE}
-embed_url("https://www.youtube.com/watch?v=kVIZGCT5p9U") %>%
+"https://www.youtube.com/watch?v=kVIZGCT5p9U" %>%
+ embed_url() %>%
  use_align("center")
 ```
 
