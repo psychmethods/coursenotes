@@ -29,7 +29,7 @@ library(knitr)
 
 ```{r, echo=FALSE}
 
-include_tweet("https://twitter.com/datavisFriendly/status/1365801123584565249")
+try(include_tweet("https://twitter.com/datavisFriendly/status/1365801123584565249"))
 ```
 
 
@@ -49,12 +49,12 @@ https://www.shortcutfoo.com/
 ## rstudio is magic
 ```{r, echo=FALSE}
 
-include_tweet("https://twitter.com/Emil_Hvitfeldt/status/1356468455101227009")
+try(include_tweet("https://twitter.com/Emil_Hvitfeldt/status/1356468455101227009"))
 ```
 ## automation quote
 ```{r, echo=FALSE}
 
-include_tweet("https://twitter.com/CodeWisdom/status/1358724807525871617")
+try(include_tweet("https://twitter.com/CodeWisdom/status/1358724807525871617"))
 ```
 
 
@@ -152,7 +152,7 @@ https://hostrider.com/
 
 ```{r, echo=FALSE}
 ## Family Trees Cut Short
-#include_tweet("https://twitter.com/ShamiraGelbman/status/1354424275583848450")
+#try(include_tweet("https://twitter.com/ShamiraGelbman/status/1354424275583848450"))
 ```
 
 ## Democratic databases: science on GitHub
@@ -172,5 +172,5 @@ https://www.nytimes.com/2021/01/31/technology/facial-recognition-photo-tool.html
 ##
 ```{r, echo=FALSE}
 
-include_tweet("https://twitter.com/SMasonGarrison/status/1372640164493856773")
+try(include_tweet("https://twitter.com/SMasonGarrison/status/1372640164493856773"))
 ```
