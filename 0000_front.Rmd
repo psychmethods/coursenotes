@@ -1,35 +1,57 @@
+<!-- front page -->
+
 ```{r include = FALSE}
 source("code/common.R")
-htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 library(tidyverse)
 library(devtools)
 library(DT)
 library(vembedr)
 library(knitr)
+library(readr)
+library(gt)
+# devtools::install_github("hadley/emo")
+
+# parameters
+
+class_days <- c("Tuesday and Thursday")
+start_time <- "12 p.m. EST."
+start_day  <- "Monday"
 ```
 
 ```{r links, child="admin/md/links.md"}
 ```
 
+## Mason Notes {.unnumbered}
+
+This website is constantly changing. I've included the source code for this website in the class [repo][course_repo]. I encourage you to contribute to the [course code][course_git]. If you catch typos or errors, please issue a pull request with the fixes. If you find cool or useful resources, please add them. By the end of the semester, I would love for everyone to have contributed to the course materials.
+
+### How to use these notes {.unnumbered}
+
+To navigate these course notes, use the table of contents on the left side of the screen. You can open or close the table of contents using the hamburger icon (horizontal bars) at the top of the document. Additionally, there are other icons at the top of the document for searching within the text, and for adjusting the size, font, or color scheme of the page. The document will be updated (unpredictably) throughout the semester.
+
+Each module corresponds to a week's worth of material. Most modules are dedicated to improving a specific skill or at the very least dedicated to a specific theme. Within each module, you will find a range of resources including embedded videos, slides, activities, labs, and tutorials. The skills developed in each module are designed to build upon those you've learned in previous modules.  Eventually, this class will have more modules available than weeks in a semester, so that you -- the reader -- can choose your own adventure (err... module) you'd like to start with.
+
+Although these notes have some textbook-like features, they are neither comprehensive nor completely original. The main purpose is to give you all a set of common materials to draw upon during the course. In class, we will sometimes do things outside the notes. The idea here is that you will read the materials and try to learn from them, just as you will attend classes and try to learn from them.
 
 
+# Attribution {.unnumbered}
 
-# Attribution {-}
-This class leans heavily on other peoples' materials and ideas. I have done my best to document the origin of the materials and ideas. In particular, I have noted those people whose work has been a major contribution as well as those who have additional contributions. You can see specific changes by examining the [edit history on the git repo][edits]
+This class leans heavily on other peoples' materials and ideas. I have done my best to document the origin of the materials and ideas. In particular, I have noted people whose work has been a major contribution as well as those who have additional contributions. You can see specific changes by examining the [edit history on the git repo][edits]
 
-## Major Attributions  {-}
+## Major Attributions {.unnumbered}
+
 * Mason Garrison's [Data Science for Psychologists][ds4p]
 * Jenny Bryan's ([jennybryan]) [STAT 545][stat-545]
 * Joe Rodgers's 2101
 * Alisa Beyer [Introduction to Statistics for Psychology](https://open.maricopa.edu/psy230mm/)
 * Danielle Navarro's [Learning Statistics with R](https://learningstatisticswithr.com/)
 
-## Additional Attributions  {-}
+## Additional Attributions {.unnumbered}
 
 * Eric Stone's 210
 * Eranda Jayawickreme's 310
 
-# License {-#license}
+# License {#license .unnumbered}
 
 This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
 
@@ -77,9 +99,15 @@ material.
 
 ```{r include = FALSE}
 # automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
+knitr::write_bib(
+  c(
+    .packages(),
+    "bookdown",
+    "knitr",
+    "rmarkdown"
+  ),
+  "packages.bib"
+)
 ```
 
 
@@ -92,10 +120,11 @@ The book style is based on a design by [Desirée De Leon](https://desiree.rbind.
 
 This version of the notes was built with:
 
+
 ```{r message = FALSE,error=TRUE, warning = FALSE, echo = FALSE}
 # needed because new_session is set to true in _bookdown.yml
-all_pkgs <- renv::dependencies(path = "DESCRIPTION") %>% 
-  pull(Package) 
+all_pkgs <- renv::dependencies(path = "DESCRIPTION") %>%
+  pull(Package)
 
 session <- devtools::session_info(pkgs = all_pkgs)
 
@@ -105,13 +134,17 @@ session$platform
 Along with these packages:
 
 ```{r message = FALSE,error=TRUE, warning = FALSE, echo = FALSE}
-session$packages %>% 
-  select(package, loadedversion, date, source) %>% 
-  DT::datatable(rownames = FALSE,
-                class = 'cell-border stripe',
-                filter = list(position = 'top'),
-                options = list(pageLength = nrow(session$packages), 
-                           autoWidth = TRUE,
-                           bInfo = FALSE,
-                           paging = FALSE))
+session$packages %>%
+  select(package, loadedversion, date, source) %>%
+  DT::datatable(
+    rownames = FALSE,
+    class = "cell-border stripe",
+    filter = list(position = "top"),
+    options = list(
+      pageLength = nrow(session$packages),
+      autoWidth = TRUE,
+      bInfo = FALSE,
+      paging = FALSE
+    )
+  )
 ```

@@ -1,6 +1,6 @@
-# (PART\*) Module 00 {-}
+# (PART) Module 00 {.unnumbered}
 
-# Don't Miss Module 00 {-}
+# Don't Miss Module 00 {.unnumbered}
 
 ```{r include = FALSE}
 source("code/common.R")
@@ -34,6 +34,7 @@ For this module those goals are...
 
 
 ## Learning Goals for this Module (Chapter 0)
+
 * Explain the structure of the course.
 * Understand the rationale underlying the structure of the course.
 * Explain the expectations for your section.
@@ -71,47 +72,47 @@ In order to successfully complete Module 0, please do the following:
 
 ## Course Modality
 
-This class is a flipped class. 
+I have taught this class in practically every modality available. 
 The online portions are asynchronous, and often contain pre-recorded videos. 
-I've created a video highlighting how to be a successful asynchronous learner. 
+### Successful Asynchronous Learning
 
+I've created a video highlighting how to be a successful asynchronous learner.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,eval = knitr::is_latex_output()}
+ embed_youtube_alt("dc3D2tbl8G0")
+```
+```{r, echo=FALSE,eval = knitr::is_html_output()}
 "https://www.youtube.com/watch?v=dc3D2tbl8G0" %>%
- embed_url() %>%
+  embed_url() %>%
   use_align("center")
 ```
 
 Much of this information comes from Northeastern University's [Tips for Taking Online Classes](https://www.northeastern.edu/graduate/blog/tips-for-taking-online-classes/)
 
 
-### Productivity During Lockdown
 
-```{r, echo=FALSE}
-"https://www.youtube.com/watch?v=snAhsXyO3Ck" %>%
- embed_url() %>%
-  use_align("center")
+
+# Knowledge is Power
+
+```{r, echo=FALSE,eval = knitr::is_latex_output()}
+ embed_youtube_alt("ZbGMbdDLnyY")
 ```
-
-
-## Knowledge is Power
-
-```{r, echo=FALSE}
+```{r, echo=FALSE,eval = knitr::is_html_output()}
 "https://www.youtube.com/watch?v=ZbGMbdDLnyY" %>%
- embed_url() %>%
+  embed_url() %>%
   use_align("center")
 ```
 
-This brief video is covers the icebreaker I do in all of my classes. 
-I encourage you to watch it. 
-In it, I discuss stereotype threats and statistics anxiety.
+This brief video is covers the icebreaker I do in all of my classes. I encourage you to watch it. In it, I discuss stereotype threats and statistics anxiety.
 
+## Meet Prof. Mason
 
-## Meet Mason
-
-```{r,echo=FALSE}
+```{r, echo=FALSE,eval = knitr::is_latex_output()}
+ embed_youtube_alt("1IOCKxgowaQ")
+```
+```{r, echo=FALSE,eval = knitr::is_html_output()}
 "https://www.youtube.com/watch?v=1IOCKxgowaQ" %>%
- embed_url() %>%
+  embed_url() %>%
   use_align("center")
 ```
 
@@ -131,9 +132,11 @@ So now she has three cats...
 
 ## Website Tour
 
-```{r, echo=FALSE}
-"https://www.youtube.com/watch?v=Fq_hAQd78zo" %>%
- embed_url() %>%
- use_align("center")
+```{r, echo=FALSE,eval = knitr::is_latex_output()}
+ embed_youtube_alt("Fq_hAQd78zo")
 ```
-
+```{r, echo=FALSE,eval = knitr::is_html_output()}
+"https://www.youtube.com/watch?v=Fq_hAQd78zo" %>%
+  embed_url() %>%
+  use_align("center")
+```
