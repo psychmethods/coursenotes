@@ -18,7 +18,7 @@ library(knitr)
 This class leans heavily on other peoples' materials and ideas. I have done my best to document the origin of the materials and ideas. In particular, I have noted those people whose work has been a major contribution as well as those who have additional contributions. You can see specific changes by examining the [edit history on the git repo][edits]
 
 ## Major Attributions  {-}
-
+* Mason Garrison's [Data Science for Psychologists][ds4p]
 * Jenny Bryan's ([jennybryan]) [STAT 545][stat-545]
 * Joe Rodgers's 2101
 * Alisa Beyer [Introduction to Statistics for Psychology](https://open.maricopa.edu/psy230mm/)
