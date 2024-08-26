@@ -17,7 +17,7 @@ class_urls <- read.csv("./data/class_urls.csv")
 
 As we transition from descriptive to inferential statistics, we begin our exploration of probability - the foundation of statistical inference. Probability provides the direct link between samples and the populations they represent. In this chapter, we'll focus on the fundamental concepts needed to lay the groundwork for future inferential statistics, connecting probability to our existing knowledge of normal distributions and z-scores.
 
-```{r}
+```{r,echo=FALSE}
 knitr::include_graphics("https://imgs.xkcd.com/comics/probability.png")
 ```
 
@@ -29,14 +29,32 @@ Informally, we usually think of **probability** as a number that describes the l
 
 ```{r}
 library(ggplot2)
+# labels
+terms_data <- data.frame(
+  term = c("Impossible", "Almost Impossible", "Very Unlikely", "Unlikely", "50-50 chance", "Likely", "Very Likely", "Almost Certain", "Absolute Certain"),
+  value = c(0, 0.01, 0.1, 0.25, 0.5, 0.75, 0.9, 0.99, 1),
+  anchor = c(T, F, F, F, T, F, F, F, T)
+) %>% arrange(value)
+# Set the factor levels according to the order of 'value'
+terms_data$term <- factor(terms_data$term, levels = terms_data$term[order(terms_data$value)])
 
-ggplot(data.frame(x = c(0, 1)), aes(x)) +
-  geom_hline(yintercept = 0) +
-  annotate("text", x = 0, y = 0.05, label = "Impossible\n(0)", hjust = 0) +
-  annotate("text", x = 1, y = 0.05, label = "Certain\n(1)", hjust = 1) +
-  annotate("text", x = 0.5, y = 0.05, label = "50-50 chance\n(0.5)", hjust = 0.5) +
-  theme_void() +
+terms_data %>% filter(anchor==T)%>%
+ggplot(aes(x = value, y = term)) +
+  geom_point(aes(color = anchor), size = 3) +
+  geom_segment(aes(xend = value, yend = term), 
+               x = 0, xend = 1, linetype = "dashed") +
+  scale_color_manual(values = c("red", "black")) +
+  geom_text(aes(label = term), hjust = .5, vjust = -.5)+
+  theme_minimal() +
+  theme(
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    legend.position = "none"
+  ) +
+  labs(title = "Probability Terminology") +
   xlim(-0.1, 1.1)
+
 ```
 
 Probability can be discussed more vaguely. "Chances are low it will rain today" is something you might hear from a meteorologist (or your weather app, if you're not fancy enough to have a personal meteorologist). But notice how the probability changes with conditions: "Given there are no clouds, chances are low it will rain today." That "given" is statistician-speak for "under these conditions."
@@ -48,16 +66,22 @@ As conditions change, so does the probability. If it were cloudy and windy outsi
 Now, you might have noticed that terms like "low" and "high" are pretty vague. They're the statistical equivalent of saying "a pinch" in a recipe - it means something different to everyone. That's why in statistics, we try to use more precise language or, even better, numbers to represent the probability of our event.
 
 ```{r}
-vague_terms <- data.frame(
-  term = c("Almost Impossible", "Very Unlikely", "Unlikely", "50-50", "Likely", "Very Likely", "Almost Certain"),
-  value = c(0.01, 0.1, 0.25, 0.5, 0.75, 0.9, 0.99)
-)
-
-ggplot(vague_terms, aes(x = value, y = term)) +
-  geom_point(size = 3) +
-  scale_x_continuous(limits = c(0, 1)) +
-  labs(x = "Probability", y = "Term") +
-  theme_minimal()
+terms_data %>%
+ggplot(aes(x = value, y = term)) +
+  geom_point(aes(color = anchor), size = 3) +
+  geom_segment(aes(xend = value, yend = term), 
+               x = 0, xend = 1, linetype = "dashed") +
+  scale_color_manual(values = c("red", "black")) +
+  geom_text(aes(label = term), hjust = .5, vjust = -.5)+
+  theme_minimal() +
+  theme(
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    legend.position = "none"
+  ) +
+  labs(title = "Probability Terminology") +
+  xlim(-0.1, 1.1)
 ```
 
 Regardless of whether we're using vague terms or precise numbers, the basic structure and logic of our probability statements remain consistent. It's like the grammar of uncertainty - once you know the rules, you can speak probability fluently!
