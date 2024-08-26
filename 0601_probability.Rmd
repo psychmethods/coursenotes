@@ -15,17 +15,19 @@ class_urls <- read.csv("./data/class_urls.csv")
 
 # Welcome to Probability
 
+As we transition from descriptive to inferential statistics, we begin our exploration of probability - the foundation of statistical inference. Probability provides the direct link between samples and the populations they represent. In this chapter, we'll focus on the fundamental concepts needed to lay the groundwork for future inferential statistics, connecting probability to our existing knowledge of normal distributions and z-scores.
 
-In this lesson, we start to move away from descriptive statistics and begin our transition into inferential statistics. Recall that the goal of inferential statistics is to draw conclusions or make predictions about large populations by using data from smaller samples that represent that population. Probability is the underlying concept of inferential statistics and forms a direct link between samples and the population that they come from. In this chapter we will focus only on the principles and ideas necessary to lay the groundwork for future inferential statistics. We accomplish this by quickly tying the concepts of probability to what we already know about normal distributions and z-scores.
 
-## What is probability?
+## Basic Probability Concepts
 
 Informally, we usually think of **probability** as a number that describes the likelihood of some event occurring, which ranges from zero (impossibility) to one (certainty). Probability can be discussed more vaguely.  Chances are low it will rain today. Given there are no clouds, chances are low it will rain today. "Given" is the word we use to state what the conditions are. As the conditions change, so does the probability. Thus, if it were cloudy and windy outside, we might say, "given the current weather conditions, there is a high probability that it is going to rain." It should also be noted that the terms "low" and "high" are relative and vague, and they will likely be interpreted different by different people (in other words: given how vague the terminology was, the probability of different interpretations is high). In statistics, most of the time we try to use more precise language or, even better, numbers to represent the probability of our event. Regardless, the basic structure and logic of our statements are consistent with how we speak about probability using numbers and formulas.
 
 Sometimes probabilities will instead be expressed in percentages, which range from zero to one hundred, as when the weather forecast predicts a twenty percent chance of rain today. In each case, these numbers are expressing how likely that particular event is, ranging from absolutely impossible (0%) to absolutely certain (100%). When we speak of the probability of something happening, we are talking how likely it is that "thing" will happen based on the conditions present. To formalize probability theory, we first need to define a few terms: 
 
+### What is probability?
 **Probability theory** is the branch of mathematics that deals with chance and uncertainty. It forms an important part of the foundation for statistics, because it provides us with the mathematical tools to describe uncertain events. The study of probability arose in part due to interest in understanding games of chance, like cards or dice. These games provide useful examples of many statistical concepts, because when we repeat these games the likelihood of different outcomes remains (mostly) the same.
 
+### The Probability Formula
 To calculate probability, we need an activity that produces or observes an outcome is needed. This is typically an experiment or any situation or activity in which the result is not known in advance. Examples are the outcome for: the weather outside, flipping a coin, rolling a 6-sided die, or trying a new route to work to see if it's faster than the old route. 
 
 We also need to know the known outcomes of the activity/event/experiment. The **sample space** is the set of possible outcomes for an activity. We represent these by listing them within a set of squiggly brackets.
@@ -50,7 +52,6 @@ Put into an equation using generic terms, we get:
 
 Probability = $\frac{Number of Favorable  (desired) outcomes}{Total number of possible Outcomes}$
 
-
 We can also using P( ) as shorthand for probability and we can use A as shorthand for an event:
 
 P(A) = $\frac{Number of Favorable outcomes to A}{Total number of possible Outcomes}$
@@ -69,7 +70,8 @@ Now that we have a probability formula, we can outline the formal features of pr
 - The total probability of all outcomes in the sample space is 1; 
     - that is, if we take the probability of each event and add them up, they must sum to 1. 
     - This is interpreted as saying "Take all of the possible events and add up their probabilities. These must sum to one."
-- The probability of any individual event cannot be greater than one.     - This is implied by the previous point; since they must sum to one, and they can't be negative, then any particular probability cannot exceed one.
+- The probability of any individual event cannot be greater than one.     
+- This is implied by the previous point; since they must sum to one, and they can't be negative, then any particular probability cannot exceed one.
 
 To summarize, the probability that an event happens is the number of outcomes that qualify as that event (i.e. the number of ways the event could happen) compared to the total number of outcomes (i.e. how many things are possible). The principles laid out here operate under a certain set of conditions and can be elaborated into ideas that are complex yet powerful and elegant. However, such extensions are not necessary for a basic understanding of statistics, so we will end our discussion on the math of probability here. We will now return to a more familiar topic. This idea then brings us back around to our normal distribution, which can also be broken up into regions or areas, each of which are bounded by one or two z-scores and correspond to all z- scores in that region. The probability of randomly getting one of those z-scores in the specified region can then be found on a **Standard Normal Distribution Table**. Thus, the larger the region, the more likely an event is, and vice versa. Because the tails of the distribution are, by definition, smaller and we go farther out into the tail, the likelihood or probability of finding a result out in the extremes becomes small.
 
@@ -186,7 +188,6 @@ Just like a pie chart is broken up into slices by drawing lines through it, we c
 knitr::include_graphics("img/bodytail.png")
 ```
 
-
 As you can see, we can break up the normal distribution into 3 pieces (lower tail, body, and upper tail) as in Figure 2 or into 2 pieces (body and tail) as in Figure 3. We can then find the proportion of the area in the body and tail based on where the line was drawn (i.e. at what z-score). Mathematically this is done using calculus.
 
 Fortunately, the exact values are given you to you in a *Standard Normal Distribution Table*, also known at the **z-table**. Using the values in this table, we can find the area under the normal curve in any body, tail, or combination of tails no matter which z-scores are used to define them.
@@ -201,7 +202,6 @@ We would first find the row for 1.60 then follow it across to the column labeled
 ```{r normtable, echo = FALSE, fig.cap="Using the z-table to find the area in the body to the left of z = 1.62"}
 knitr::include_graphics("img/normtable.jpeg")
 ```
-
 
 The z-table only presents the area in the body for positive z-scores because the normal distribution is symmetrical. Thus, the area in the body of z = 1.62 is equal to the area in the body for z = -1.62, though now the body will be the shaded area to the right of z (because the body is always larger). When in doubt, drawing out your distribution and shading the area you need to find will always help. The table also only presents the area in the body because the total area under the normal curve is always equal to 1.00, so if we need to find the area in the tail for z = 1.62, we simply find the area in the body and subtract it from 1.00 (1.00 – 0.9474 = 0.0526).
 
@@ -307,17 +307,19 @@ Often though, we might want to know how likely it is to find a value that is as 
 
 Although we have information, sometimes we can be mislead.  Let's use the example of a coin toss. Each toss is independent of one another with only 2 outcomes {heads, tails}. What if I want to calculate the probability of getting heads for a coin toss? I might base that on my previous 12 coin flips. A coin might come up heads 8 times out of 12 flips, for a relative frequency of 8/12 or 2/3. Again, the probability is usually calculated as the proportion of successful outcomes divided by the number of all possible outcomes. What happens if I toss the coin again? What is the probability that it will be heads again? Do I use information from my previous 12 flips? Well, the answer is ½ or 50%. That is because in our scenario, each toss is independent and each outcome is independent. This means that the outcome of the ninth toss is not related to the previous toss. To assume otherwise is committing what we call **gambler's fallacy**.
 
+### Statistical Independence
+
 The term "independent" has a very specific meaning in statistics, which is somewhat different from the common usage of the term. **Statistical independence** between two variables means that knowing the value of one variable doesn't tell us anything about the value of the other. This can be expressed as: P(A|B)=P(A). That is, the probability of A given some value of B is just the same as the overall probability of A (because they are independent). Again, while independence in common language often refers to sets that are exclusive, statistical independence refers to the case where one cannot predict anything about one variable from the value of another variable. For example, knowing a person's hair color is unlikely to tell you whether they prefer chocolate or strawberry ice cream. Later in the book we will discuss statistical tools that will let us directly test whether two variables are independent.
 
 Sometimes we want to quantify the relation between probabilities more directly, which we can do by converting them into odds which express the relative likelihood of something happening or not. We can use odds to compare different probabilities, by computing what is called an **odds ratio** – which is exactly what it sounds like. For example, let's say that we want to know how much the positive test increases the individual's odds of having cancer. We can first compute the prior odds – that is, the odds before we knew that the person had tested positively. An odds ratio is an example of what we will later call an effect size, which is a way of quantifying how relatively large any particular statistical effect is.
 
 A final point relates to how probabilities have been interpreted. Historically, there have been two different ways that probabilities have been interpreted. The first (known as the frequentist interpretation) interprets probabilities in terms of long-run frequencies. For example, in the case of a coin flip, it would reflect the relative frequencies of heads in the long run after a large number of flips. While this interpretation might make sense for events that can be repeated many times like a coin flip, it makes less sense for events that will only happen once, like an individual person's life or a particular presidential election; and as the economist John Maynard Keynes famously said, "In the long run, we are all dead." The other interpretation of probabilities (known as the Bayesian interpretation) is as a degree of belief in a particular proposition. If I were to ask you "How likely is it that the US will return to the moon by 2040", you can provide an answer to this question based on your knowledge and beliefs, even though there are no relevant frequencies to compute a frequentist probability. One way that we often frame subjective probabilities is in terms of one's willingness to accept a particular gamble. For example, if you think that the probability of the US landing on the moon by 2040 is 0.1 (i.e. odds of 9 to 1), then that means that you should be willing to accept a gamble that would pay off with anything more than 9 to 1 odds if the event occurs. As we will see, these two different definitions of probability are very relevant to the two different ways that statisticians think about testing statistical hypotheses, which we will encounter in later chapters.
 
-# Recap
+## Recap
 
 Probability is a mathematical tool used to study randomness. It deals with the chance (the likelihood) of an event occurring. The theory of probability began with the study of games of chance such as poker. Predictions take the form of probabilities. To predict the likelihood of an earthquake, of rain, or whether you will get an A in this course, we use probabilities. Doctors use probability to determine the chance of a vaccination causing the disease the vaccination is supposed to prevent. A stockbroker uses probability to determine the rate of return on a client's investments. You might use probability to decide to buy a lottery ticket or not. In your study of statistics, you will use the power of mathematics through probability calculations to analyze and interpret your data.
 
-## Learning objectives
+### Learning objectives
 
 Having read this chapter, you should be able to:
 
@@ -327,7 +329,7 @@ Describe the difference between a probability and a conditional probability
 Describe the relationship between z-scores and the standard unit normal table (z-table)
 Probability is a tough topic for everyone, but the tools it gives us are incredibly powerful and enable us to do amazing things with data analysis. They are the heart of how inferential statistics work.
 
-## Exercises
+### Exercises
 
 1. In your own words, what is probability?
 2. There is a bag with 5 red blocks, 2 yellow blocks, and 4 blue blocks. If you reach in and grab one block without looking, what is the probability it is red?
