@@ -17,28 +17,68 @@ class_urls <- read.csv("./data/class_urls.csv")
 
 As we transition from descriptive to inferential statistics, we begin our exploration of probability - the foundation of statistical inference. Probability provides the direct link between samples and the populations they represent. In this chapter, we'll focus on the fundamental concepts needed to lay the groundwork for future inferential statistics, connecting probability to our existing knowledge of normal distributions and z-scores.
 
+```{r}
+knitr::include_graphics("https://imgs.xkcd.com/comics/probability.png")
+```
+
+Why do we care about probability? Well, besides helping you calculate your odds of winning the lottery (spoiler alert: they're not good), probability is essential for understanding how likely our statistical results are to occur by chance. It's like the bouncer at the club of statistical significance - deciding what gets in and what doesn't.
 
 ## Basic Probability Concepts
 
-Informally, we usually think of **probability** as a number that describes the likelihood of some event occurring, which ranges from zero (impossibility) to one (certainty). Probability can be discussed more vaguely.  Chances are low it will rain today. Given there are no clouds, chances are low it will rain today. "Given" is the word we use to state what the conditions are. As the conditions change, so does the probability. Thus, if it were cloudy and windy outside, we might say, "given the current weather conditions, there is a high probability that it is going to rain." It should also be noted that the terms "low" and "high" are relative and vague, and they will likely be interpreted different by different people (in other words: given how vague the terminology was, the probability of different interpretations is high). In statistics, most of the time we try to use more precise language or, even better, numbers to represent the probability of our event. Regardless, the basic structure and logic of our statements are consistent with how we speak about probability using numbers and formulas.
+Informally, we usually think of **probability** as a number that describes the likelihood of some event occurring, which ranges from zero (impossibility) to one (certainty). But probability isn't always about precise numbers - sometimes it's more like a weather forecast for your data.
 
-Sometimes probabilities will instead be expressed in percentages, which range from zero to one hundred, as when the weather forecast predicts a twenty percent chance of rain today. In each case, these numbers are expressing how likely that particular event is, ranging from absolutely impossible (0%) to absolutely certain (100%). When we speak of the probability of something happening, we are talking how likely it is that "thing" will happen based on the conditions present. To formalize probability theory, we first need to define a few terms: 
+```{r}
+library(ggplot2)
+
+ggplot(data.frame(x = c(0, 1)), aes(x)) +
+  geom_hline(yintercept = 0) +
+  annotate("text", x = 0, y = 0.05, label = "Impossible\n(0)", hjust = 0) +
+  annotate("text", x = 1, y = 0.05, label = "Certain\n(1)", hjust = 1) +
+  annotate("text", x = 0.5, y = 0.05, label = "50-50 chance\n(0.5)", hjust = 0.5) +
+  theme_void() +
+  xlim(-0.1, 1.1)
+```
+
+Probability can be discussed more vaguely. "Chances are low it will rain today" is something you might hear from a meteorologist (or your weather app, if you're not fancy enough to have a personal meteorologist). But notice how the probability changes with conditions: "Given there are no clouds, chances are low it will rain today." That "given" is statistician-speak for "under these conditions."
+
+> Fun fact: The word "given" in probability is like the statistical version of "once upon a time" in fairy tales. It sets the stage for all the probabilistic action that follows!
+
+As conditions change, so does the probability. If it were cloudy and windy outside, we might say, "given the current weather conditions, there is a high probability that it is going to rain." It's like a game of probabilistic Jenga - change one piece, and the whole structure of likelihood shifts!
+
+Now, you might have noticed that terms like "low" and "high" are pretty vague. They're the statistical equivalent of saying "a pinch" in a recipe - it means something different to everyone. That's why in statistics, we try to use more precise language or, even better, numbers to represent the probability of our event.
+
+```{r}
+vague_terms <- data.frame(
+  term = c("Almost Impossible", "Very Unlikely", "Unlikely", "50-50", "Likely", "Very Likely", "Almost Certain"),
+  value = c(0.01, 0.1, 0.25, 0.5, 0.75, 0.9, 0.99)
+)
+
+ggplot(vague_terms, aes(x = value, y = term)) +
+  geom_point(size = 3) +
+  scale_x_continuous(limits = c(0, 1)) +
+  labs(x = "Probability", y = "Term") +
+  theme_minimal()
+```
+
+Regardless of whether we're using vague terms or precise numbers, the basic structure and logic of our probability statements remain consistent. It's like the grammar of uncertainty - once you know the rules, you can speak probability fluently!
+
+Sometimes probabilities will instead be expressed in percentages, which range from zero to one hundred, as when the weather forecast predicts a twenty percent chance of rain today. In each case, these numbers express how likely that particular event is, ranging from absolutely impossible (0%) to absolutely certain (100%). When we speak of the probability of something happening, we are talking about how likely a "thing" will happen based on the conditions present. To formalize probability theory, we first need to define a few terms: 
 
 ### What is probability?
 **Probability theory** is the branch of mathematics that deals with chance and uncertainty. It forms an important part of the foundation for statistics, because it provides us with the mathematical tools to describe uncertain events. The study of probability arose in part due to interest in understanding games of chance, like cards or dice. These games provide useful examples of many statistical concepts, because when we repeat these games the likelihood of different outcomes remains (mostly) the same.
 
 ### The Probability Formula
-To calculate probability, we need an activity that produces or observes an outcome is needed. This is typically an experiment or any situation or activity in which the result is not known in advance. Examples are the outcome for: the weather outside, flipping a coin, rolling a 6-sided die, or trying a new route to work to see if it's faster than the old route. 
 
-We also need to know the known outcomes of the activity/event/experiment. The **sample space** is the set of possible outcomes for an activity. We represent these by listing them within a set of squiggly brackets.
+To calculate probability, we need an activity that produces or observes an outcome. This could be anything from flipping a coin to trying a new route to work. It is typically an experiment or any situation or activity in which the result is not known in advance. Before we dive into the formula, let's define some key terms:
 
-- For rain is {rain, not rain}
-- For a coin flip, the sample space is {heads, tails}.
-- For a six-sided die, the sample space is each of the possible numbers that can appear: {1,2,3,4,5,6}.
+- '''Sample space''': This is the set of all possible outcomes for our activity. We write it using fancy squiggly brackets { }.
+  - For a coin flip: {heads, tails}
+  - For a six-sided die: {1, 2, 3, 4, 5, 6}
+  - For the weather: {rain, not rain}
 
-For the amount of time it takes to get to work, the sample space is all possible real numbers greater than zero (since it can't take a negative amount of time to get somewhere, at least not yet). We won't bother trying to write out all of those numbers within the brackets.
+> For the amount of time it takes to get to work, the sample space is all possible real numbers greater than zero (since it can't take a negative amount of time to get somewhere, at least not yet). We won't bother writing out all those numbers within the brackets.
 
-An **outcome or event** is a subset of the sample space to examine specific probability. In principle, it could be one or more of possible outcomes in the sample space, but here we will focus primarily on elementary events which consist of exactly one possible outcome. An event is a catch-all term to talk about any specific thing happening.
+- '''Outcome or event''': This is a subset of the sample space that we're interested in. It's the "what are we actually looking for?" part of our probability question. In principle, it could be one or more of possible outcomes in the sample space, but here we will focus primarily on elementary events which consist of exactly one possible outcome. An event is a catch-all term to talk about any specific thing happening.
 
 > For example, this could be it rains, obtaining heads in a single coin flip, rolling a 4 on a throw of the die, or taking 21 minutes to get home by the new route.
 
