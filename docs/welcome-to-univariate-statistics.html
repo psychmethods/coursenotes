@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | Psychology Research Methods</title>
+  <title>2 Welcome to Univariate Statistics | Psychology Research Methods</title>
   <meta name="description" content="Psy 310: Research Methods" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | Psychology Research Methods" />
+  <meta property="og:title" content="2 Welcome to Univariate Statistics | Psychology Research Methods" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://psychmethods.github.io/coursenotes/assets/logo.png" />
   <meta property="og:description" content="Psy 310: Research Methods" />
   <meta name="github-repo" content="psychmethods/coursenotes" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Psychology Research Methods" />
+  <meta name="twitter:title" content="2 Welcome to Univariate Statistics | Psychology Research Methods" />
   <meta name="twitter:site" content="@smasongarrison" />
   <meta name="twitter:description" content="Psy 310: Research Methods" />
   <meta name="twitter:image" content="https://psychmethods.github.io/coursenotes/assets/logo.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="media-without-a-home-yet.html"/>
-
+<link rel="prev" href="guidance.html"/>
+<link rel="next" href="welcome-to-probability.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -326,29 +326,127 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered hasAnchor">
-<h1>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="welcome-to-univariate-statistics" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Welcome to Univariate Statistics<a href="welcome-to-univariate-statistics.html#welcome-to-univariate-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This module introduces you to descriptive statistics for a single variable. Please work your way through the notes. Most of the slides can be found in the [slides repo][slides].</p>
+<div id="learning-goals" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Learning Goals<a href="welcome-to-univariate-statistics.html#learning-goals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of this module, you should be able to achieve all the learning goals outlined below.</p>
+<ul>
+<li>Describe the purpose of descriptive statistics.</li>
+<li>Calculate and interpret measures of central tendency.</li>
+<li>Calculate and interpret measures of variability.</li>
+<li>Understand the difference between population and sample statistics.</li>
+<li>Explain when to use different measures of central tendency and variability.</li>
+<li>Understand the role of outliers in descriptive statistics.</li>
+<li>Use R to calculate descriptive statistics and create visualizations for a single variable.</li>
+<li>Describe degrees of freedom and its role in statistics.</li>
+</ul>
+</div>
+<div id="degrees-of-freedom-and-bessels-correction" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Degrees of Freedom and Bessel’s Correction<a href="welcome-to-univariate-statistics.html#degrees-of-freedom-and-bessels-correction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Every statistic borrows information from the data to estimate something about a population. When we spend information on estimating unknowns, we reduce how much “free” information remains to estimate variability or to test hypotheses. That remaining, usable information is what degrees of freedom count. In this chapter, we make that informal idea precise and show why a small tweak called Bessel’s correction fixes a systematic bias in sample variance.</p>
+<p>Formally, the degrees of freedom of a statistic is the number of independent pieces of information that went into calculating the estimate.</p>
+<p>Typically, when you see “degrees of freedom” in a research methods class, it is in the context of inferential statistics. However, degrees of freedom is a concept that comes up in many statistical contexts. And although our textbook skips over it, I think it is important to understand the concept of degrees of freedom in the context of descriptive statistics.</p>
+<div id="why-degrees-of-freedom-exist" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Why degrees of freedom exist<a href="welcome-to-univariate-statistics.html#why-degrees-of-freedom-exist" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Imagine you have a sample of 5 scores: 2, 4, 6, 8, and 10. The mean of these scores is 6. Now, suppose I tell you that the first four scores are 2, 4, 6, and 8. Can you figure out what the fifth score is? Yes! It must be 10 because the mean is 6.</p>
+<p>In this example, once you know the mean and the first four scores, the fifth score is no longer free to vary. It is completely determined by the other four scores and the mean. In other words, only four of the five scores are free to vary. We say that this sample has 4 degrees of freedom.</p>
+<p>More formally, suppose you have n observations x1,…,xn and you compute the sample mean . If I hand you the first n−1 values and also tell you the sample mean, the last value is no longer free to vary: it is determined by the mean constraint:</p>
+<p>sum(xi) = n * </p>
+<p>The sample mean imposes one linear constraint, so exactly one degree of freedom is used up. What remains is n−1 pieces of independent wiggle left for measuring dispersion about that mean.</p>
+<p>General principle:</p>
+<p>degrees of freedom = number of observed data points − number of independent constraints estimated from those data.</p>
+<p>Constraints typically arise from parameters we estimate from the same sample (a mean, a slope, group means, etc.), or from structural conditions (e.g., probabilities summing to 1).</p>
+</div>
+<div id="bessels-correction" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Bessel’s correction<a href="welcome-to-univariate-statistics.html#bessels-correction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When we estimate the population variance from a sample, we use the sample mean as an estimate of the population mean. However, using the sample mean introduces a bias in our estimate of the population variance. This bias occurs because the sample mean is calculated from the same data used to calculate the variance, which reduces the variability in the data.</p>
+<p>Formmally, the problem shows up when we try to estimate the population variance σ² from a sample.</p>
+<p>Population variance is</p>
+<p>σ² = E[(X − μ)²].</p>
+<p>We try to estimate it from a sample by replacing the unknown μ with the sample mean x̄. The naive plug-in estimator</p>
+<p>s²_naive = (1/n) ∑(xi − x̄)²</p>
+<p>is biased downward: on average it underestimates σ². Intuitively, x̄ sits closer to the xi than μ does (it is chosen to minimize squared deviations), so the average squared residual around x̄ is too small.</p>
+<p>Bessel’s correction fixes this bias by replacing n with n−1 in the denominator:</p>
+<p>s² = (1/(n−1)) ∑(xi − x̄)².</p>
+<p>This small change makes a big difference: s² is an unbiased estimator of σ². The intuition is that using x̄ as an estimate of μ uses up one degree of freedom, leaving only n−1 independent pieces of information to estimate variability. E[s²] = σ².</p>
+</div>
+<div id="a-quick-simulation" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> A quick simulation<a href="welcome-to-univariate-statistics.html#a-quick-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To see Bessel’s correction in action, we can run a quick simulation. We’ll generate a population of data, take multiple samples from it, and compare the naive variance estimator with Bessel’s corrected estimator.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="welcome-to-univariate-statistics.html#cb2-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb2-2"><a href="welcome-to-univariate-statistics.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-3"><a href="welcome-to-univariate-statistics.html#cb2-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-4"><a href="welcome-to-univariate-statistics.html#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="welcome-to-univariate-statistics.html#cb2-5" tabindex="-1"></a>sim_var <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">reps =</span> <span class="dv">10000</span>) {</span>
+<span id="cb2-6"><a href="welcome-to-univariate-statistics.html#cb2-6" tabindex="-1"></a>  <span class="co"># Draw from a distribution with known σ²; standard normal has σ² = 1</span></span>
+<span id="cb2-7"><a href="welcome-to-univariate-statistics.html#cb2-7" tabindex="-1"></a>  naive <span class="ot">&lt;-</span> <span class="fu">numeric</span>(reps)</span>
+<span id="cb2-8"><a href="welcome-to-univariate-statistics.html#cb2-8" tabindex="-1"></a>  bessl <span class="ot">&lt;-</span> <span class="fu">numeric</span>(reps)</span>
+<span id="cb2-9"><a href="welcome-to-univariate-statistics.html#cb2-9" tabindex="-1"></a>  <span class="cf">for</span> (r <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>reps) {</span>
+<span id="cb2-10"><a href="welcome-to-univariate-statistics.html#cb2-10" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb2-11"><a href="welcome-to-univariate-statistics.html#cb2-11" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb2-12"><a href="welcome-to-univariate-statistics.html#cb2-12" tabindex="-1"></a>    naive[r] <span class="ot">&lt;-</span> <span class="fu">mean</span>((x <span class="sc">-</span> m)<span class="sc">^</span><span class="dv">2</span>)        <span class="co"># divide by n</span></span>
+<span id="cb2-13"><a href="welcome-to-univariate-statistics.html#cb2-13" tabindex="-1"></a>    bessl[r] <span class="ot">&lt;-</span> <span class="fu">sum</span>((x <span class="sc">-</span> m)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(n <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># divide by n-1</span></span>
+<span id="cb2-14"><a href="welcome-to-univariate-statistics.html#cb2-14" tabindex="-1"></a>  }</span>
+<span id="cb2-15"><a href="welcome-to-univariate-statistics.html#cb2-15" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">n =</span> n, <span class="at">naive =</span> <span class="fu">mean</span>(naive), <span class="at">bessel =</span> <span class="fu">mean</span>(bessl))</span>
+<span id="cb2-16"><a href="welcome-to-univariate-statistics.html#cb2-16" tabindex="-1"></a>}</span>
+<span id="cb2-17"><a href="welcome-to-univariate-statistics.html#cb2-17" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="welcome-to-univariate-statistics.html#cb2-18" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">sim_var</span>(<span class="dv">3</span>), <span class="fu">sim_var</span>(<span class="dv">5</span>), <span class="fu">sim_var</span>(<span class="dv">10</span>), <span class="fu">sim_var</span>(<span class="dv">30</span>), <span class="fu">sim_var</span>(<span class="dv">100</span>))</span>
+<span id="cb2-19"><a href="welcome-to-univariate-statistics.html#cb2-19" tabindex="-1"></a>out</span>
+<span id="cb2-20"><a href="welcome-to-univariate-statistics.html#cb2-20" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 3</span></span>
+<span id="cb2-21"><a href="welcome-to-univariate-statistics.html#cb2-21" tabindex="-1"></a><span class="co">#&gt;       n naive bessel</span></span>
+<span id="cb2-22"><a href="welcome-to-univariate-statistics.html#cb2-22" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span id="cb2-23"><a href="welcome-to-univariate-statistics.html#cb2-23" tabindex="-1"></a><span class="co">#&gt; 1     3 0.666  1.000</span></span>
+<span id="cb2-24"><a href="welcome-to-univariate-statistics.html#cb2-24" tabindex="-1"></a><span class="co">#&gt; 2     5 0.804  1.01 </span></span>
+<span id="cb2-25"><a href="welcome-to-univariate-statistics.html#cb2-25" tabindex="-1"></a><span class="co">#&gt; 3    10 0.906  1.01 </span></span>
+<span id="cb2-26"><a href="welcome-to-univariate-statistics.html#cb2-26" tabindex="-1"></a><span class="co">#&gt; 4    30 0.965  0.998</span></span>
+<span id="cb2-27"><a href="welcome-to-univariate-statistics.html#cb2-27" tabindex="-1"></a><span class="co">#&gt; 5   100 0.992  1.00</span></span></code></pre></div>
+<p>You should see that the column bessel is very close to 1 across n, whereas naive is consistently below 1, with the discrepancy largest at small n.</p>
+<p>A visualization:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="welcome-to-univariate-statistics.html#cb3-1" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">n =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">30</span>), <span class="at">reps =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4000</span>)</span>
+<span id="cb3-2"><a href="welcome-to-univariate-statistics.html#cb3-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> grid <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="welcome-to-univariate-statistics.html#cb3-3" tabindex="-1"></a>  <span class="fu">group_by</span>(n) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="welcome-to-univariate-statistics.html#cb3-4" tabindex="-1"></a>  <span class="fu">do</span>({</span>
+<span id="cb3-5"><a href="welcome-to-univariate-statistics.html#cb3-5" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(.<span class="sc">$</span>n[<span class="dv">1</span>]<span class="sc">*</span><span class="dv">4000</span>)</span>
+<span id="cb3-6"><a href="welcome-to-univariate-statistics.html#cb3-6" tabindex="-1"></a>    mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(x, <span class="at">nrow =</span> <span class="dv">4000</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-7"><a href="welcome-to-univariate-statistics.html#cb3-7" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(mat)</span>
+<span id="cb3-8"><a href="welcome-to-univariate-statistics.html#cb3-8" tabindex="-1"></a>    naive <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>((mat <span class="sc">-</span> m)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb3-9"><a href="welcome-to-univariate-statistics.html#cb3-9" tabindex="-1"></a>    bessel <span class="ot">&lt;-</span> <span class="fu">rowSums</span>((mat <span class="sc">-</span> m)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(.<span class="sc">$</span>n[<span class="dv">1</span>]<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb3-10"><a href="welcome-to-univariate-statistics.html#cb3-10" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">naive =</span> naive, <span class="at">bessel =</span> bessel)</span>
+<span id="cb3-11"><a href="welcome-to-univariate-statistics.html#cb3-11" tabindex="-1"></a>  }) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>()</span>
+<span id="cb3-12"><a href="welcome-to-univariate-statistics.html#cb3-12" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="welcome-to-univariate-statistics.html#cb3-13" tabindex="-1"></a>res_long <span class="ot">&lt;-</span> res <span class="sc">%&gt;%</span></span>
+<span id="cb3-14"><a href="welcome-to-univariate-statistics.html#cb3-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">30</span>), <span class="at">each =</span> <span class="dv">4000</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-15"><a href="welcome-to-univariate-statistics.html#cb3-15" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;naive&quot;</span>,<span class="st">&quot;bessel&quot;</span>), <span class="at">names_to =</span> <span class="st">&quot;estimator&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>)</span>
+<span id="cb3-16"><a href="welcome-to-univariate-statistics.html#cb3-16" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="welcome-to-univariate-statistics.html#cb3-17" tabindex="-1"></a><span class="fu">ggplot</span>(res_long, <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span></span>
+<span id="cb3-18"><a href="welcome-to-univariate-statistics.html#cb3-18" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb3-19"><a href="welcome-to-univariate-statistics.html#cb3-19" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-20"><a href="welcome-to-univariate-statistics.html#cb3-20" tabindex="-1"></a><span class="co"># trim x axis for better visualization</span></span>
+<span id="cb3-21"><a href="welcome-to-univariate-statistics.html#cb3-21" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">4</span>)) <span class="sc">+</span></span>
+<span id="cb3-22"><a href="welcome-to-univariate-statistics.html#cb3-22" tabindex="-1"></a>  <span class="fu">facet_grid</span>(estimator <span class="sc">~</span> n, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
+<span id="cb3-23"><a href="welcome-to-univariate-statistics.html#cb3-23" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribution of sample variance estimators; true σ² = 1&quot;</span>,</span>
+<span id="cb3-24"><a href="welcome-to-univariate-statistics.html#cb3-24" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Estimated variance&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-25"><a href="welcome-to-univariate-statistics.html#cb3-25" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="0401_univariate_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Interpretation: Histograms for the naive estimator center below 1; Bessel-corrected ones center near 1.</p>
 
+</div>
+</div>
 </div>
 
 
 
-
-
-
-
-
-
-
-
-
+<!-- keep-->
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="media-without-a-home-yet.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="guidance.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="welcome-to-probability.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -379,7 +477,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/psychmethods/coursenotes/edit/main/9999_references.Rmd",
+    "link": "https://github.com/psychmethods/coursenotes/edit/main/0401_univariate.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -390,7 +488,7 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": ["https://github.com/psychmethods/coursenotes/raw/main/9999_references.Rmd", "CN4P.epub"],
+  "download": ["https://github.com/psychmethods/coursenotes/raw/main/0401_univariate.Rmd", "CN4P.epub"],
   "search": {
     "engine": "fuse",
     "options": null

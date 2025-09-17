@@ -39,41 +39,12 @@ For this module those goals are...
 * Understand the rationale underlying the structure of the course.
 * Explain the expectations for your section.
 
-## To-Do List
-
-I provide a list of tasks you'll need to do to complete the module. 
-I provide this list to give the class structure. 
-These tasks are broken down into three stages: explore, engage, and evaluate 
-These stages are designed to be sequential. 
-Complete the explore tasks first. 
-Second, complete the engage tasks. 
-Last, complete the evaluation.
-For each stage, I will explicitly indicate whether specific tasks are required or merely, recommended.
-
-The exploring portion of the class introduces you to the content of the module. 
-It will consist of reading texts and viewing videos. 
-Relative to the other two portions of the module, its more passive.
-
-The engagement portion of the class facilitates you engaging with the material, interacting with the other members of the learning community. 
-Students will complete two engagement activities. 
-Most of the time, I'll provide multiple choices for the engagement portion of the module.
-
-In order to successfully complete Module 0, please do the following:
-
-* Explore:
-  * Skim: the preface of your textbook (Optional)
-  * View: the embedded videos connected to the learning goals.
-* Engage:
-  * Create: a brief video introducing yourself and post it on the discussion board.
-  * Complete: the following survey.
-* Evaluate:  
-
-
 
 ## Course Modality
 
 I have taught this class in practically every modality available. 
 The online portions are asynchronous, and often contain pre-recorded videos. 
+
 ### Successful Asynchronous Learning
 
 I've created a video highlighting how to be a successful asynchronous learner.
