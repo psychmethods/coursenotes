@@ -14,11 +14,12 @@ This repository contains course notes for PSY 310: Research Methods for Psycholo
 
 Files follow a strict naming pattern:
 - **Format**: `XXYY_description.Rmd` or `XXYY_description.Xmd`
-- **XX**: Module number (00-99)
-- **YY**: Section within module (01-99)
+- **XX**: Module number (00-15 typically, but can go up to 99)
+- **YY**: Section within module (00-02 typically, but can go higher)
 - **Extension**: 
   - `.Rmd` for completed R Markdown files with content
   - `.Xmd` for placeholder/template files that need content
+- Numbers use zero-padding (e.g., `01` not `1`)
 
 **Example**: `0401_univariate.Rmd` = Module 04, Section 01, topic is univariate statistics
 
@@ -30,7 +31,7 @@ Each content file should:
 1. Start with a module header: `# (PART) Module XX {-}`
 2. Include a setup chunk that sources `code/common.R`
 3. Load required libraries in the setup chunk
-4. Include a links child document: `` ```{r links, child="admin/md/links.md"} ```.
+4. Include a links child document: ```{r links, child="admin/md/links.md"}```
 5. Use meaningful section headers (`#`, `##`, `###`)
 
 **Standard setup chunk pattern:**
@@ -59,13 +60,14 @@ class_urls <- read.csv("./data/class_urls.csv")
 
 ### Dependencies
 
-The project uses packages listed in `DESCRIPTION`. Common packages include:
+The project uses packages listed in `DESCRIPTION`. Core packages include:
 - `bookdown` - for building the book
 - `tidyverse` - for data manipulation and visualization
 - `knitr`, `rmarkdown` - for document generation
 - `DT` - for interactive tables
-- `vembedr` - for embedding videos
-- `gt` - for formatted tables
+- `gt` - for formatted tables (installed from GitHub via Remotes)
+
+**Note**: Some packages like `vembedr` (for embedding videos) are used in the code but not listed in DESCRIPTION. This is acceptable for packages installed via `if (!require())` checks in individual files.
 
 **Do not add new dependencies** without strong justification. Use existing packages when possible.
 
