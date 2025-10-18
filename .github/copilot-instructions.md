@@ -31,7 +31,7 @@ Each content file should:
 1. Start with a module header: `# (PART) Module XX {-}`
 2. Include a setup chunk that sources `code/common.R`
 3. Load required libraries in the setup chunk
-4. Include a links child document: ```{r links, child="admin/md/links.md"}```
+4. Include a links child document with: `` ```{r links, child="admin/md/links.md"} ``` ``
 5. Use meaningful section headers (`#`, `##`, `###`)
 
 **Standard setup chunk pattern:**
@@ -67,7 +67,7 @@ The project uses packages listed in `DESCRIPTION`. Core packages include:
 - `DT` - for interactive tables
 - `gt` - for formatted tables (installed from GitHub via Remotes)
 
-**Note**: Some packages like `vembedr` (for embedding videos) are used in the code but not listed in DESCRIPTION. This is acceptable for packages installed via `if (!require())` checks in individual files.
+**Note**: Some packages like `vembedr` (for embedding videos) and `tweetrmd` (for embedding tweets) are loaded with `library()` calls in files but not listed in DESCRIPTION. For GitHub-sourced packages, use the conditional install pattern: `if (!require("pkg")) devtools::install_github("source/pkg")`.
 
 **Do not add new dependencies** without strong justification. Use existing packages when possible.
 
