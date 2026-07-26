@@ -14,7 +14,7 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-description: "Psy 310: Research Methods"
+description: "Psy 210: Research Methods"
 favicon: assets/favicon.ico
 
 ---
@@ -22,7 +22,7 @@ favicon: assets/favicon.ico
 
 # (PART\*) Front Matter {-}
 
-# Welcome to PSY 310 {-}
+# Welcome to PSY 210 {-}
 
 
 ```{r include = FALSE}

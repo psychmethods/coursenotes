@@ -13,6 +13,7 @@ class_urls <- read.csv("./data/class_urls.csv")
 ```{r links, child="admin/md/links.md"}
 ```
 
+
 # Welcome to Univariate Statistics
 
 This module introduces you to descriptive statistics for a single variable. Please work your way through the notes.   Most of the slides can be found in the [slides repo][slides].
@@ -31,34 +32,56 @@ By the end of this module, you should be able to achieve all the learning goals 
 * Describe degrees of freedom and its role in statistics.
 
 
-## Degrees of Freedom and Bessel’s Correction
+# Degrees of freedom?
 
-Every statistic borrows information from the data to estimate something about a population. When we spend information on estimating unknowns, we reduce how much “free” information remains to estimate variability or to test hypotheses. That remaining, usable information is what degrees of freedom count. In this chapter, we make that informal idea precise and show why a small tweak called Bessel’s correction fixes a systematic bias in sample variance.
 
+You have probably heard the term "degrees of freedom" before—it shows up everywhere. Even though our textbook skips over it, it’s worth understanding degrees of freedom (df) in the context of descriptive statistics because they explain why we divide by n−1 for variance and why test statistics use particular reference distributions and parameters.
+
+
+### What are degrees of freedom?
+
+Every statistic borrows information from the data to estimate something about a population. When we spend information on estimating unknowns, we reduce how much “free” information remains to estimate variability or to test hypotheses. That remaining, usable information is what degrees of freedom count. 
 Formally, the degrees of freedom of a statistic is the number of independent pieces of information that went into calculating the estimate.
 
-Typically, when you see "degrees of freedom" in a research methods class, it is in the context of inferential statistics. However, degrees of freedom is a concept that comes up in many statistical contexts. And although our textbook skips over it, I think it is important to understand the concept of degrees of freedom in the context of descriptive statistics.
 
 ### Why degrees of freedom exist
 
 Imagine you have a sample of 5 scores: 2, 4, 6, 8, and 10. The mean of these scores is 6. Now, suppose I tell you that the first four scores are 2, 4, 6, and 8. Can you figure out what the fifth score is? Yes! It must be 10 because the mean is 6.
+
+
+```{r}
+x <- c(2, 4, 6, 8, 10)
+
+mean(x)
+
+(5 * mean(x)) - (2 + 4 + 6 + 8)
+
+```
 
 In this example, once you know the mean and the first four scores, the fifth score is no longer free to vary. It is completely determined by the other four scores and the mean. In other words, only four of the five scores are free to vary. We say that this sample has 4 degrees of freedom.
 
 More formally, suppose you have n observations x1,...,xn and you compute the sample mean $\overline{x}$. If I hand you the first n−1 values and also tell you the sample mean, the last value is no longer free to vary: it is determined by the mean constraint:
 
 
-$$\sum_{n=1}^{n} x_{i} = n * \overline{x} $$
+$$\sum_{n=1}^{n} x_{i} = n \cdot \overline{x} $$
 
 The sample mean imposes one linear constraint, so exactly one degree of freedom is used up. What remains is $n−1$ pieces of independent wiggle left for measuring dispersion about that mean.
 
 **General principle**: degrees of freedom = number of observed data points − number of independent constraints estimated from those data.
 
-Constraints typically arise from parameters we estimate from the same sample (a mean, a slope, group means, etc.), or from structural conditions (e.g., probabilities summing to 1).
+Constraints typically arise from parameters we estimate from the same sample (a mean, a slope, group means, etc.), or from structural conditions (e.g., probabilities summing to 1). 
+
+#### Statistical Money
+
+I like to think of degrees of freedom like a budget, where we can spend statistical money. You start with n dollars (data points). Every time you estimate something from the data, you spend some of that budget. The more you estimate, the less you have left to spend on other things. 
+
+Even if you don't explicitly calculate a statistic, if it is estimated from the data, it uses up degrees of freedom. Every statistic you calculate uses up some of your degrees of freedom budget. Eventually, you will run out of degrees of freedom. When that happens, you can't estimate any more statistics from the data. 
+
+Rodgers (2019) has a great discussion of degrees of freedom in Advances in Methods and Practices in Psychological Science. You can find it [here](https://journals.sagepub.com/doi/epub/10.1177/2515245919882050).
 
 ### Bessel’s correction
 
-When we estimate the population variance from a sample, we use the sample mean as an estimate of the population mean. However, using the sample mean introduces a bias in our estimate of the population variance. This bias occurs because the sample mean is calculated from the same data used to calculate the variance, which reduces the variability in the data.
+When we estimate the population variance from a sample, we use the sample mean as an estimate of the population mean. However, using the sample mean introduces a bias in our estimate of the population variance. This bias occurs because the sample mean is calculated from the same data used to calculate the variance, which reduces the variability in the data. 
 
 Formally, the problem shows up when we try to estimate the population variance σ² from a sample.
 
@@ -78,6 +101,10 @@ Bessel’s correction fixes this bias by replacing n with n−1 in the denominat
 s² = (1/(n−1)) ∑(xi − x̄)².
 
 This small change makes a big difference: s² is an unbiased estimator of σ². The intuition is that using x̄ as an estimate of μ uses up one degree of freedom, leaving only n−1 independent pieces of information to estimate variability. E[s²] = σ².
+
+I think this explanation from Book (1979) is helpful:
+
+Book, S. A. (1979). Why n - 1 in the Formula for the Sample Standard Deviation? The Two-Year College Mathematics Journal, 10(5), 330–333. https://doi.org/10.2307/3026853
 
 ### A quick simulation
 
@@ -140,4 +167,39 @@ ggplot(res_long, aes(x = value, y = after_stat(density))) +
 
 ```
 
-Interpretation: Histograms for the naive estimator center below 1; Bessel-corrected ones center near 1.
+Interpretation: Histograms for the naive estimator center below 1; Bessel-corrected ones center near 1  (and the gap is biggest at small n)
+
+<!-- 
+### What are degrees of freedom?
+
+When we compute statistics from a sample, we are using the data to learn something unknown about a population. That learning has a cost. Each time we estimate a quantity—like a mean, a slope, or a group difference—we spend a bit of the information contained in the sample. **Degrees of freedom (df)** tell us how much **independent** information remains **free to vary** after we make those purchases. Said differently, df are the part of the data that has not already been “committed” to supporting the estimates we decided to use.
+
+It helps to keep a single image in mind. Treat each observation as **one unit of statistical money** deposited into an account when you collect your data. If you measured $n$ people, your balance starts at $n$. Estimating an independent quantity from those same data is like **buying** that estimate with your statistical money. Most basic estimates cost about one unit. The money that remains after the purchases is your **degrees of freedom**—what is still available to quantify variability, evaluate fit, and, later in the course, index reference distributions (the specific $t$, $F$, or $\chi^2$ curve you should use). Rodgers (2019) develops this same “statistical bank” idea: deposit $df_\text{total}=n$, spend $df_\text{model}$ (roughly one per independent parameter), and the remaining balance $df_\text{residual}=n-df_\text{model}$ is the free information you can still use.
+
+Two practical clarifications make this concrete for students. First, **no single observation is “the one spent.”** The data points are exchangeable in this bookkeeping sense, like identical dollar bills: any could have paid the cost, so we only track **how many** units remain, not **which** ones. Second, “independent information” here does not mean “not correlated” in the everyday sense; it means that after we fix the estimates we bought, the remaining pieces of the data can still vary without automatically forcing something else to change. That is the part of the sample that remains genuinely informative for measuring spread or checking how closely a model follows the data.
+
+Typically, when you see "degrees of freedom" in a research methods class, it is in the context of inferential statistics. However, degrees of freedom is a concept that comes up in many statistical contexts. And although our textbook skips over it, I think it is important to understand the concept of degrees of freedom in the context of descriptive statistics.
+
+### Why degrees of freedom exist
+
+A short example shows the accounting in action. Consider five scores: $2, 4, 6, 8, 10$. Their sample mean is $6$. If you know the mean and any four of the five scores, the fifth score is no longer a mystery—you can compute it exactly. In that scenario, your data still look like five numbers, but only **four** are **free to vary** once the mean is fixed. You started with five units of statistical money; you **spent one** to buy the mean; you have **four** left. That is why, in this situation, the degrees of freedom are $4$.
+
+```{r}
+x <- c(2, 4, 6, 8, 10)
+
+mean(x)
+
+(5 * mean(x)) - (2 + 4 + 6 + 8)
+```
+
+Here is the same idea in compact notation. With observations $x_1,\ldots,x_n$ and sample mean $\overline{x}$, the data you observed must add up to $n\overline{x}$:
+
+$$
+\sum_{i=1}^{n} x_i = n \cdot \overline{x}.
+$$
+
+You can think of this as the **receipt** for your purchase of the sample mean: once you decide to use $\overline{x}$ in place of the unknown population mean, you have tied your sample together just enough that one unit of information is no longer free. What remains—**$n-1$** independently movable pieces—is what you should rely on to measure spread around $\overline{x}$, to draw the variability part of your graphs, and, later, to select the right member of a $t$, $F$, or $\chi^2$ family when you test hypotheses.
+
+A common point of confusion is whether degrees of freedom are only about formulas. They are not; they are about **fair accounting**. If you want to know “how variable are scores around the mean we just bought from this very sample?”, you should divide by the amount of information still on the table, not by the original deposit. That is the connection to the next part of this section: **Bessel’s correction** replaces division by $n$ with division by the **remaining** information, $n-1$, precisely because one unit has already been spent to compute $\overline{x}$. The correction is small when $n$ is large and essential when $n$ is small.
+
+-->
