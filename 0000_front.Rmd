@@ -21,7 +21,7 @@ start_day  <- "Monday"
 ```{r links, child="admin/md/links.md"}
 ```
 
-## Mason Notes {.unnumbered}
+## Prof Mason Notes {.unnumbered}
 
 This website is constantly changing. I've included the source code for this website in the class [repo][course_repo]. I encourage you to contribute to the [course code][course_git]. If you catch typos or errors, please issue a pull request with the fixes. If you find cool or useful resources, please add them. By the end of the semester, I would love for everyone to have contributed to the course materials.
 
